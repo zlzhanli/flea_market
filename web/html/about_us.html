@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+  <title>跳蚤市场-关于</title>
+  <script type="text/javascript" src="../static/jquery/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="../static/local/js/fly.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.css">
+  <script type="text/javascript" src="../static/bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/static/local/css/homepage.css">
+  <link rel="stylesheet" href="../static/local/css/test.css">
+  <link rel="stylesheet" href="/static/local/css/animate.min.css">
+  <link rel="stylesheet" href="../static/res/layui/css/layui.css">
+  <link rel="stylesheet" href="../static/res/static/css/index.css">
+  <script >
+
+      //检测登录
+      $(function () {
+          $.post("../customer_getCustomerInfo.action",function (data) {
+              if(data.msg=="ok"){
+                  $("#loginOrNot").html("<div style='float: left;'> <img src='../upload/"+data.photo+"' class='photo img-circle'/></div>")
+                  $("#loginOrNot").append("&nbsp;&nbsp;<div style='float:left; margin-left: 10px;margin-top: 5px'> <a style='font-size: 14px'>" +data.nickName+"</a></div>");
+                  $("#loginOrNot").click(
+                      function () {
+                          window.location.href="../customer_infoUI.action";
+                      }
+
+                  );
+              }
+          },"json");
+      })
+  </script>
+
+
+</head>
+<body>
+  <!-- nav部分 -->
+
+    <div id="header" class="header">
+      <div class="main" >
+        <span id="header-logo" style="display: flex;justify-content: left;align-items: center;"><img style="height: 35px;margin-right: 10px;" src="/static/images/logo.png" alt=""><span>跳蚤市场</span></span>
+        <ul style="margin-left: 92px;padding-inline-start: 0px;">
+          <li id="navbar-homepage"  ><a  href="../main_index.action"  target="_self">首页</a></li>
+          <li id="navbar-apk"><a  href="../main_shop.action" target="_self">自营商城</a></li>
+          <li id="navbar-game"><a href="../main_forum.action" target="_self">跳蚤论坛</a></li>
+          <li id="navbar-market"><a href="../main_app.action" target="_self">跳蚤市场APP</a></li>
+          <li id="navbar-about"><a class="barActive" href="../main_aboutUs.action" target="_self">关于我们</a></li>
+        </ul>
+        <!--购物车图标-->
+        <a href="../cart_lsCarts.action"><img class="topCart" id="cart" width="30px" height="30px" src="../static/local/img/topCart.png" /></a>
+        <!--购物车徽标-->
+        <p class="cartNum" style="width: 40px;"><a href="#"> <span class="badge" style="background-color: #888">0</span></a></p>
+        <div id="loginOrNot" class="photoAndName">
+          <a href="../main_login.action">登录</a>&nbsp;&nbsp;<a style="display: inline" href="../main_register.action">注册</a>
+        </div>
+      </div>
+    </div>
+  <!-- banner部分 -->
+  <div class="banner about" style="margin-top: -10px">
+    <div class="title">
+      <p>关于我们</p>
+      <p class="en">About Us</p>
+    </div>
+  </div>
+  <!-- main部分 -->
+  <div class="main-about">
+    <div class="layui-container">
+      <div class="layui-row">
+        <ul class="aboutab">
+          <li class="layui-this">公司简介</li><li>招贤纳士</li><li>发展历程</li>
+        </ul>
+        <div class="tabIntro">
+          <div class="content">
+            <div class="layui-inline img"><img src="../static/res/static/img/us_img1.jpg"></div><div class="layui-inline panel">
+              <p>身处在前端社区的繁荣之下，我们都在有意或无意地追逐。而 跳蚤偏偏回望当初，奔赴在返璞归真的漫漫征途，自信并勇敢着，追寻于原生态的书写指令，试图以最简单的方式诠释高效。</p>
+            </div>
+          </div>
+          <div class="content">
+            <div class="layui-inline panel p_block">
+              <p>如果眼下还是一团零星之火，那运筹帷幄之后，迎面东风，就是一场烈焰燎原吧，那必定会是一番尽情的燃烧。待，秋风萧瑟时，散作满天星辰，你看那四季轮回，正是Layui不灭的执念。</p>
+            </div><div class="layui-inline img"><img src="../static/res/static/img/us_img2.jpg"></div>
+              <p class="p_hidden">如果眼下还是一团零星之火，那运筹帷幄之后，迎面东风，就是一场烈焰燎原吧，那必定会是一番尽情的燃烧。待，秋风萧瑟时，散作满天星辰，你看那四季轮回，正是Layui不灭的执念。</p>
+          </div>
+          <div class="content">
+            <div class="layui-inline img"><img src="../static/res/static/img/us_img3.jpg"></div><div class="layui-inline panel">
+              <p>拥有双面的不仅是人生，跳蚤。一面极简，一面丰盈。极简是视觉所见的外在，是开发所念的简易。丰盈是倾情雕琢的内在，是信手拈来的承诺。一切本应如此，简而全，双重体验。</p>
+            </div>
+          </div>         
+        </div>
+        <div class="tabJob">
+          <div class="content">
+            <p class="title">营销策划（北京）</p>
+            <p>> 职位描述</p>
+            <ol>
+              <li>营销策划工作；</li>
+              <li>具有对云、大数据、人工智能等产业的洞察力和理解力，对市场营销、产品定价等工作有敏锐感，具备系统思维能力，有建模分析等项目经验者优先；</li>
+              <li>身心健康，乐观积极正能量，具有团队合作精神；</li>
+              <li>喜欢挑战与变化，工作激情饱满，能承受工作压力；</li>
+              <li>文字功底扎实，总结提炼能力强，熟练掌握PPT技巧。</li>
+            </ol>
+          </div>
+          <div class="content">
+            <p class="title">市场主管</p>
+            <p>> 职位描述</p>
+            <ol>
+              <li>全面计划、安排、管理市场部工作；</li>
+              <li>大专以上学历，市场营销相关专业优先；</li>
+              <li>至少两年以上教育培训相关市场经验，良好的渠道资源和社会资源优先；</li>
+              <li>较强的团队协作意识与执行能力，逻辑思维能力强；</li>
+              <li>善于团队管理与自我管理。</li>
+            </ol>
+          </div>
+          <div class="content">
+            <p class="title">网站维护专员</p>
+            <p>> 职位描述</p>
+            <ol>
+              <li>负责医院网站的网页美化和版面完善；</li>
+              <li>根据业务科室需求，设计开发专栏产品，包括视频制作、上传等；</li>
+              <li>负责医院网站信息的准确性和及时性；</li>
+              <li>负责域名管理、续费和网站的备案管理等；</li>
+              <li>服从领导工作安排。</li>
+            </ol>
+          </div>
+        </div>
+        <div class="tabCour">
+          <p class="title">我们的蜕变</p>
+          <ul class="timeline">
+            <li class="odd">
+              <div class="cour-img"><img src="../static/res/static/img/us_img4.png"></div>
+              <div class="cour-panel layui-col-sm4 layui-col-lg5">
+                <p class="label">2017 年 6 月</p>
+                <p>我们成立了，来到了祖国的首都北京。</p>
+              </div>
+            </li>
+            <li>
+              <div class="cour-img"><img src="../static/res/static/img/us_img5.png"></div>
+              <div class="cour-panel layui-col-sm4 layui-col-sm-offset8 layui-col-lg5 layui-col-lg-offset7">
+                <p class="label">2017 年 6 月</p>
+                <p>我们成立了，来到了祖国的首都北京。</p>
+              </div>
+            </li>
+            <li class="odd">
+              <div class="cour-img"><img src="../static/res/static/img/us_img6.png"></div>
+              <div class="cour-panel layui-col-sm4 layui-col-lg5">
+                <p class="label">2017 年 6 月</p>
+                <p>我们成立了，来到了祖国的首都北京。</p>
+              </div>
+            </li>
+            <li>
+              <div class="cour-img"><img src="../static/res/static/img/us_img7.png"></div>
+              <div class="cour-panel layui-col-sm4 layui-col-sm-offset8 layui-col-lg5 layui-col-lg-offset7">
+                <p class="label">2017 年 6 月</p>
+                <p>我们成立了，来到了祖国的首都北京。</p>
+              </div>
+            </li>
+            <li class="odd">
+              <div class="cour-img"><img src="../static/res/static/img/us_img8.png"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- footer部分 -->
+  <div class="footer">
+    <div class="layui-container">
+      <p class="footer-web">
+        <a href="javascript:;">合作伙伴</a>
+        <a href="javascript:;">企业画报</a>
+        <a href="javascript:;">JS网</a>
+        <a href="javascript:;">千图网</a>
+        <a href="javascript:;">昵图网</a>
+        <a href="javascript:;">素材网</a>
+        <a href="javascript:;">花瓣网</a>
+      </p>
+      <div class="layui-row footer-contact">
+        <div class="layui-col-sm2 layui-col-lg1"><img src="../static/res/static/img/erweima.jpg"></div>
+        <div class="layui-col-sm10 layui-col-lg11">
+          <div class="layui-row">
+            <div class="layui-col-sm6 layui-col-md8 layui-col-lg9">
+              <p class="contact-top"><i class="layui-icon layui-icon-cellphone"></i>&nbsp;400-8888888&nbsp;&nbsp;&nbsp;(9:00-18:00)</p>
+              <p class="contact-bottom"><i class="layui-icon layui-icon-home"></i>&nbsp;88888888@163.com</span></p>
+            </div>
+            <div class="layui-col-sm6 layui-col-md4 layui-col-lg3">
+              <p class="contact-top"><span class="right">北京海淀区杏石口路98号</span></p>
+              <p class="contact-bottom"><span class="right">Copyright&nbsp;©&nbsp;2016-2018&nbsp;&nbsp;ICP&nbsp;备888888号</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="../static/res/layui/layui.js"></script>
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+  <script>
+      $(function () {
+          //计算购物车徽标位置
+          function measureNum() {
+              var temleft = $(".topCart").offset().left;
+              var temTop = $(".cartNum").offset().top = $(".topCart").offset().top;
+              $(".cartNum").css({position: "absolute", left: temleft + 15, top: temTop - 7});
+          }
+
+          measureNum();
+          $(window).resize(function () {
+              measureNum();
+          });
+          changeNum();
+      });
+
+      //修改购物车的数量
+      function changeNum() {
+          $.post("../cart_countCart.action", function (data) {
+              $(".badge").html(data.toString());
+          }, "json");
+      }
+  </script>
+<script>
+  layui.config({
+    base: '../static/res/static/js/'
+  }).use('firm'); 
+</script>
+</body>
+</html>

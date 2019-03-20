@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+    <default-config>
+        <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://55.55.5.2:3306/flea_market?useSSL=false&amp;serverTimezone=Hongkong&amp;characterEncoding=utf-8&amp;autoReconnect=true</property>
+        <property name="user">liutianyou</property>
+        <property name="password">root</property>
+        <property name="initialPoolSize">20</property>
+        <property name="maxIdleTime">30</property>
+        <property name="maxPoolSize">100</property>
+        <property name="minPoolSize">20</property>
+
+    </default-config>
+
+</c3p0-config>

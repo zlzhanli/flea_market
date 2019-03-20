@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link type="text/css" href="../static/local/css/css.css" rel="stylesheet" />
+    <script type="text/javascript" src="../static/jquery/jquery-3.0.0.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#goLogin").click(function () {
+                window.location.href = "../main_login.action";
+            })
+        })
+    </script>
+</head>
+
+<body>
+
+<div class="content">
+    <div class="for-liucheng">
+        <div class="liulist for-cur"></div>
+        <div class="liulist for-cur"></div>
+        <div class="liulist for-cur"></div>
+        <div class="liulist for-cur"></div>
+        <div class="liutextbox">
+            <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+            <div class="liutext for-cur"><em>2</em><br /><strong>验证身份</strong></div>
+            <div class="liutext for-cur"><em>3</em><br /><strong>设置新密码</strong></div>
+            <div class="liutext for-cur"><em>4</em><br /><strong>完成</strong></div>
+        </div>
+    </div><!--for-liucheng/-->
+    <div class="successs">
+        <h3>恭喜您，修改成功！</h3>
+        <span id="time" style="font-size: 16px"></span>
+    </div>
+    <div>
+        <button id="goLogin" style="background-color: #3c763d; margin-left: 650px;height: 50px;width: 100px;font-size: 30px;font-family: 楷体" >返回</button></div>
+</div><!--web-width/-->
+</div><!--content/-->
+
+<script language="javascript">
+    var t = 10;
+    var time = $("#time");
+    function fun(){
+        t--;
+        time.html(t+"秒后进入首页");
+        if(t<=0){
+            location.href = "../main_login.action";
+            clearInterval(inter);
+        }
+    }
+    var inter = setInterval("fun()",1000);
+</script>
+</body>
+</html>

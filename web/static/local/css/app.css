@@ -1,0 +1,50 @@
+h1,h3,p,a,button {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.onePage {
+    margin-top: 50px;
+    height: 800px;
+}
+.onePage-bg {
+    height: 800px;
+    width: 100%;
+    position: absolute;
+    background-position: center center;
+    background-size: cover;
+}
+#onePageBg {
+    background-image: url("../img/index_bg.jpg");
+}
+.headHlContent {
+    margin-top: 150px;
+    line-height: 75px;
+}
+.title-text {
+    margin-left: 50px;
+}
+.headFontSize h1 {
+    font-size: 50pt;
+    color: #FFFFFF;
+}
+.headFontSize p {
+    font-size: 20pt;
+    color: #FFFFFF;
+}
+.twoPage {
+    height: 700px;
+    background-image: url("../img/twoPage_bg.jpg");
+
+}
+.courser-text {
+    color: #FFFFFF;
+    margin-top: 50px;
+    width: 100%;
+    text-align: center;
+}
+.courser-text p {
+    margin-top: 50px;
+    font-size: 20px;
+}
+.footer {
+    text-align: center;
+}

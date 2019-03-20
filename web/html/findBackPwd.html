@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" href="../static/local/css/css.css" rel="stylesheet" />
+    <script type="text/javascript" src="../static/jquery/jquery-3.0.0.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#subtijiao").click(function () {
+                var loginName = $("#loginName").val();
+                if(loginName==""){
+                    //alert("用户名不能为空");
+                    $("#span_login").text("用户名不能为空");
+                    return;
+                }
+                var url = "../customer_findBackPwd.action";
+                $.post(url,
+                    {"loginName":loginName},
+                    function (code) {
+                        if(code=="404"){
+                            $("#span_login").text("用户名不存在")
+                        }else{
+                            window.location.href = "../html/backPwd2.html";
+                        }
+                    },
+                    'json')
+            })
+        })
+    </script>
+</head>
+
+    <div class="content">
+        <div class="web-width">
+            <div class="for-liucheng">
+                <div class="liulist for-cur"></div>
+                <div class="liulist"></div>
+                <div class="liulist"></div>
+                <div class="liulist"></div>
+                <div class="liutextbox">
+                    <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+                    <div class="liutext"><em>2</em><br /><strong>验证身份</strong></div>
+                    <div class="liutext"><em>3</em><br /><strong>设置新密码</strong></div>
+                    <div class="liutext"><em>4</em><br /><strong>完成</strong></div>
+                </div>
+            </div><!--for-liucheng/-->
+            <div class="forget-pwd">
+                <dl>
+                    <dt>登陆名：</dt>
+                    <dd><input type="text" id="loginName"/><span id="span_login"></span></dd>
+                    <div class="clears"></div>
+                </dl>
+                <div class="subtijiao"><input id="subtijiao" type="submit" value="提交" /></div>
+            </div><!--forget-pwd/-->
+        </div><!--web-width/-->
+    </div><!--content/-->
+
+    <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+        <p>适用浏览器：IE8、360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗.</p>
+        <p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+    </div>
+</body>
+</html>

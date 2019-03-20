@@ -1,0 +1,156 @@
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../static/jquery/jquery-3.0.0.js">
+    </script>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.css"></link>
+    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.js"></script>
+    <title></title>
+    <style type="text/css">
+        .select {
+            width: 160px;
+            text-align-last: center;
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .ml40 {
+            margin-left: 40px;
+        }
+
+        .ml20 {
+            margin-left: 20px;
+
+        }
+
+        .rtcont {
+            width: 978px;
+            height: 500px;
+            background: #fff;
+
+        }
+        .rtcont .ddzxbt {
+            width: 938px;
+            height: 60px;
+            line-height: 60px;
+            font-size: 22px;
+            font-weight: bold;
+            color: rgb(117, 117, 117);
+            padding-left: 40px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .rtcont .grzlbt {
+            width: 938px;
+            height: 60px;
+            line-height: 60px;
+            font-size: 20px;
+            color: rgb(117, 117, 117);
+        }
+
+        .rtcont .subgrzl {
+            height: 45px;
+            line-height: 45px;
+            width: 900px;
+            background: rgb(253, 253, 253);
+            border: 1px solid #aaa;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+
+        .title {
+            display: inline-block;
+            font-size: 15px;
+
+            color: rgb(117, 117, 117);
+            width: 400px;
+            height: 45px;
+            line-height: 45px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+
+        .rtcont .subgrzl span a {
+            color: teal;
+        }
+
+        .rtcont .subgrzl span a:hover {
+            color: #ff6700;
+        }
+        .time{
+            font-size: 15px;
+        }
+        .forumList{
+            cursor: pointer;
+        }
+
+
+    </style>
+
+    <script>
+        $(function () {
+            //去服务取Session
+            $.post("../../address_getCustomId.action",function (data) {
+                userId=data.toString();
+                getForumList();
+            },"json");
+
+            
+            $("#goForum").click(function () {
+                window.open("../../forum_creatForum.action","_blank");
+            });
+            //给条目绑定时间
+
+            $("#list").delegate(".forumList","click",function () {
+                window.open("../../forum_showDetail.action?id="+$(this).attr("name"),"_blank")
+            })
+        });
+        function dealTimeJson(jsonStr) {
+            var year = 1900 + jsonStr.year;
+            var month = jsonStr.month + 1;
+            var day = jsonStr.date;
+            var hour = jsonStr.hours;
+            var minutes = jsonStr.minutes;
+            return year + "-" + month + "-" + day + " " + hour + ":" + minutes;
+        }
+        function getForumList(){
+            $.post("../../forum_listForumByCustomer.action",function (data) {
+                $("#list").html("");
+                for(var i=0;data.length;i++){
+                    $("#list").append(" <div name='"+data[i].id+"' class='forumList subgrzl ml40'>\n" +
+                        "            <span class='title'>"+data[i].forumTitle+"</span>\n" +
+                        "            <span class='time'>发表于:"+dealTimeJson(data[i].forumGmtTime)+"</span>\n" +
+                        "       "+ (data[i].forumStatus==2?" <img src='/static/local/img/deled.png' height='40px'  style=' margin-bottom: 6px;margin-left: 10px;transform:rotate(30deg)'>":"")+
+                        "    </div>");
+                }
+            },"json")
+        }
+    </script>
+
+
+</head>
+<body>
+<div class="rtcont fr">
+    <div class="grzlbt ml40">我的主题帖
+        <button type="button" id="goForum" class="btn btn-primary">去发帖</button></div>
+    <div id="list">
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/local/css/item.css">
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.css">
+    <script src="../../static/jquery/jquery-3.0.0.js" type="text/javascript"></script>
+    <script src="../../static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script>
+        function load() {
+            $.ajax({
+                url: "../../customer_info.action",
+                type: "POST",
+                dataType: "json",
+                success: function (data) {
+                    if (data.loginName != "") {
+                        $("#loginName").html(data.loginName);
+                    } else {
+                        $("#loginName").html("未完善");
+                    }
+                    if (data.nickName != "") {
+                        $("#nickName").html(data.nickName);
+                    } else {
+                        $("#nickName").html("未完善");
+                    }
+                    if (data.realName != "") {
+                        $("#name").html(data.realName);
+                    } else {
+                        $("#name").html("未完善");
+                    }
+                    if (data.sex != "") {
+                        $("#sex").html(data.sex);
+                    } else {
+                        $("#sex").html("未完善");
+                    }
+                    if (data.birthday != "") {
+                        var birth=data.birthday.split(" ")[0];
+                        //alert(birth);
+                        $("#birthday").html(birth);
+                    } else {
+                        $("#birthday").html("未完善");
+                    }
+                    if (data.phone != "") {
+                        $("#phone").html(data.phone);
+                    } else {
+                        $("#phone").html("未完善");
+                    }
+
+                    if (data.idCard != "") {
+                        $("#id_card").html(data.idCard);
+                    } else {
+                        $("#id_card").html("未完善");
+                    }
+
+                }
+            });
+        }
+
+        $(function () {
+
+
+            load();
+
+            //
+            function Toast(msg, duration) {
+                duration = isNaN(duration) ? 3000 : duration;
+                var m = document.createElement('div');
+                m.innerHTML = msg;
+                m.style.cssText = "width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(240, 240, 240);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 40%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+                document.body.appendChild(m);
+                setTimeout(function () {
+                    var d = 0.5;
+                    m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+                    m.style.opacity = '0';
+                    setTimeout(function () {
+                        document.body.removeChild(m)
+                    }, d * 1000);
+                }, duration);
+            }
+
+            $(".edit").click(function () {
+
+                if ($(this).text() == "编辑") {
+
+                    var target = $(this).parent().prev();
+                    var value = target.text();
+
+                    var obj;
+                    if (target.attr("id") == "sex") {
+                        obj = "<select class='sex'>" +
+                            "<option value='男'>男</option>" +
+                            "<option value='女'>女</option>" +
+                            "</select>";
+                    } else if (target.attr("id") == "birthday") {
+
+                        obj = $("<input>", {
+                            val: value,
+                            type: "date",
+                            class: "form-control"
+                        });
+                    } else {
+                        obj = $("<input>", {
+                            val: value,
+                            type: "text",
+                            class: "form-control"
+                        });
+                    }
+                    target.html(obj);
+                    $(this).text("提交");
+                    return false;
+                }
+                if ($(this).text() == "提交") {
+                    var target = $(this).parent().prev();
+                    var value = target.children().val();
+                    if (value == ""){
+                        Toast("输入不能为空", 3000);
+                        return false;
+                    }
+                    $("#phone").popover("show");
+                    target.html(value);
+                    $(this).text("编辑");
+
+                    if (target.attr("id") == "nickName") {
+                        updateNickName(value);
+                    } else if (target.attr("id") == "sex") {
+                        updateSex(value);
+                    } else if (target.attr("id") == "birthday") {
+                        updateBirthday(value);
+                    } else if (target.attr("id") == "name") {
+                        updateRealName(value);
+                    }
+                }
+
+                return false;
+            });
+
+            function updateNickName(value) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../customer_updateNickName.action",
+                    dataType: "json",
+                    data: {nickName: value},
+                    success: function (data) {
+                        Toast(data.msg, 3000);
+                    }
+                })
+            }
+
+            function updateRealName(value) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../customer_update.action",
+                    dataType: "json",
+                    data: {realName: value},
+                    success: function (data) {
+                        Toast(data.msg, 3000);
+                    }
+                })
+            }
+            function updateBirthday(value) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../customer_update.action",
+                    dataType: "json",
+                    data: {birthday: value},
+                    success: function (data) {
+                        Toast(data.msg, 3000);
+                    }
+                })
+            }
+
+            function updateSex(value) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../customer_updateSex.action",
+                    dataType: "json",
+                    data: {sex: value},
+                    success: function (data) {
+                        Toast(data.msg, 3000);
+                    }
+                })
+
+            }
+        })
+    </script>
+</head>
+<body>
+<div class="rtcont fr">
+    <div class="grzlbt ml40">基本信息</div>
+    <div class="subgrzl ml40">
+        <span>昵称</span>
+        <span id="nickName" class="item"></span>
+        <span>
+            <button type="button" class="btn btn-primary edit" title="Popover title"
+                    data-container="body" data-toggle="popover" data-placement="top"
+                    data-content="顶部的 Popover 中的一些内容">编辑</button>
+        </span>
+    </div>
+    <div class="subgrzl ml40">
+        <span>登录名</span>
+        <span id="loginName" class="item">ZhangShanBao</span>
+    </div>
+    <div class="subgrzl ml40">
+        <span>真实姓名</span>
+        <span id="name" class="item">张闪宝</span>
+        <span>
+            <button type="button" class="btn btn-primary edit" title="Popover title"
+                    data-container="body" data-toggle="popover" data-placement="top"
+                    data-content="顶部的 Popover 中的一些内容">编辑</button>
+        </span>
+
+    </div>
+    <div class="subgrzl ml40">
+        <span>性别</span>
+        <span id="sex" class="item">男</span>
+
+    </div>
+    <div class="subgrzl ml40">
+        <span>生日</span>
+        <span id="birthday" class="item">2001-07-07</span>
+        <span>
+            <button type="button" class="btn btn-primary edit" title="Popover title"
+                    data-container="body" data-toggle="popover" data-placement="top"
+                    data-content="顶部的 Popover 中的一些内容">编辑</button>
+        </span>
+    </div>
+    <div class="subgrzl ml40">
+        <span>电话号码</span>
+        <span id="phone" class="item">1231232323</span>
+
+    </div>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        404 NOT FOUND
+    </title><!-- Behavioral Meta Data -->
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Core Meta Data -->
+    <meta content="ThemeWagon" name="author">
+    <meta content="The most spectacular coming soon template!" name="description">
+    <meta content="Comming Soon, Responsive, Landing Page, One Page" name="keywords"><!-- Open Graph Meta Data -->
+    <meta content="The most spectacular coming soon template!">
+    <meta content="ThemeWagon">
+    <meta content="ThemeWagon">
+    <meta content="website">
+    <meta content="index.html"><!-- Twitter Card Meta Data -->
+    <meta content="summary" name="twitter:card">
+    <meta content="@themewagon" name="twitter:site">
+    <meta content="@themewagon" name="twitter:creator">
+    <meta content="ThemeWagon" name="twitter:title">
+    <meta content="Imminent - The most spectacular coming soon template!" name="twitter:description">
+
+    <link href="favicon.png" rel="shortcut icon" type="image/png">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,900' rel='stylesheet' type='text/css'>
+    <!-- Styles -->
+    <link href="../../static/local/css/loader.css" rel="stylesheet" type="text/css">
+    <link href="../../static/local/css/normalize.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../static/local/css/font-awesome.min.css">
+    <link href="../../static/local/css/style404.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="../../static/local/css/ie.css"/>
+    <![endif]-->
+    <!-- Javascript -->
+
+    <script src="../../static/local/js/jquery.js"></script>
+    <script src="../../static/local/js/main.js"></script>
+
+
+    <script>
+        $(function () {
+            setInterval(getDate, 1000);
+
+
+        })
+
+
+        function twoDigits(val) {
+            if (val < 10) return "0" + val; return val;
+        }
+
+        function getDate() {
+
+
+            var myDate = new Date();
+            var h = myDate.getHours();       //获取当前小时数(0-23)
+            var m = myDate.getMinutes();     //获取当前分钟数(0-59)
+            var s = myDate.getSeconds();
+            // alert(h+":"+m+":"+s);
+            $("#h").html(twoDigits(h));
+            $("#m").html(twoDigits(m));
+            $("#s").html(twoDigits(s));
+        }
+    </script>
+
+</head>
+<body>
+<!--<h1 style="align-content: center;"></h1>-->
+<!--<div align="center"><img src="../../static/local/img/404.jpg"></div>-->
+<div class="preloader">
+    <div class="loading">
+        <h2>
+            Loading...
+        </h2>
+        <span class="progress"></span>
+    </div>
+</div>
+
+<div class="wrapper">
+    <ul class="scene unselectable" data-friction-x="0.1" data-friction-y="0.1" data-scalar-x="25" data-scalar-y="15"
+        id="scene">
+        <li class="layer" data-depth="0.00">
+        </li>
+        <!-- BG -->
+
+        <li class="layer" data-depth="0.10">
+            <div class="background">
+            </div>
+        </li>
+
+        <!-- Hero -->
+
+        <li class="layer" data-depth="0.20">
+            <div class="title">
+                <h2>
+                    404 Not Found
+                </h2>
+                <span class="line"></span>
+            </div>
+        </li>
+
+        <li class="layer" data-depth="0.25">
+            <div class="sphere">
+                <img alt="sphere" src="../../static/images/sphere.png">
+            </div>
+        </li>
+
+        <li class="layer" data-depth="0.30">
+            <div class="hero">
+                <h1 id="countdown">
+                    <div id="h"><span>hrs</span></div>
+                    <div id="m"><span>min</span></div>
+                    <div id="s"><span>sec</span></div>
+                </h1>
+
+                <p class="sub-title">
+                    Sorry, it affected your experience.
+                </p>
+            </div>
+        </li>
+        <!-- Flakes -->
+
+        <li class="layer" data-depth="0.40">
+            <div class="depth-1 flake1">
+                <img alt="flake" src="../../static/images/flakes/depth1/flakes1.png">
+            </div>
+
+            <div class="depth-1 flake2">
+                <img alt="flake" src="../../static/images/flakes/depth1/flakes2.png">
+            </div>
+
+            <div class="depth-1 flake3">
+                <img alt="flake" src="../../static/images/flakes/depth1/flakes3.png">
+            </div>
+
+            <div class="depth-1 flake4">
+                <img alt="flake" src="../../static/images/flakes/depth1/flakes4.png">
+            </div>
+        </li>
+
+        <li class="layer" data-depth="0.50">
+            <div class="depth-2 flake1">
+                <img alt="flake" src="../../static/images/flakes/depth2/flakes1.png">
+            </div>
+
+            <div class="depth-2 flake2">
+                <img alt="flake" src="../../static/images/flakes/depth2/flakes2.png">
+            </div>
+        </li>
+
+        <li class="layer" data-depth="0.60">
+            <div class="depth-3 flake1">
+                <img alt="flake" src="../../static/images/flakes/depth3/flakes1.png">
+            </div>
+
+            <div class="depth-3 flake2">
+                <img alt="flake" src="../../static/images/flakes/depth3/flakes2.png">
+            </div>
+
+            <div class="depth-3 flake3">
+                <img alt="flake" src="../../static/images/flakes/depth3/flakes3.png">
+            </div>
+
+            <div class="depth-3 flake4">
+                <img alt="flake" src="../../static/images/flakes/depth3/flakes4.png">
+            </div>
+        </li>
+
+        <li class="layer" data-depth="0.80">
+            <div class="depth-4">
+                <img alt="flake" src="../../static/images/flakes/depth4/flakes.png">
+            </div>
+        </li>
+
+        <li class="layer" data-depth="1.00">
+            <div class="depth-5">
+                <img alt="flake" src="../../static/images/flakes/depth5/flakes.png">
+            </div>
+        </li>
+        <!-- Contact -->
+
+        <li class="layer" data-depth="0.20">
+            <div class="contact">
+                Back to the Home Page <a href="../html/index.html" target="_self" title="首页">首页</a> -Understand us
+                <a href="../html/app_detail.html" title="软件详情" target="_self">了解我们</a>
+                <br>
+                <a class="mail" href="mailto:info@163.com">st_shask@163.com</a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- Javascript -->
+<script src="../../static/local/js/plugins.js"></script>
+<script src="../../static/local/js/jquery.countdown.min.js"></script>
+
+</body>
+</html>

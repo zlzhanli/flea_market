@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.css">
+    <script src="../../static/jquery/jquery-3.0.0.js" type="text/javascript"></script>
+    <script src="../../static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/themes/icon.css">
+    <script type="text/javascript" src="../../static/easy_ui/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/locale/easyui-lang-zh_CN.js"></script>
+    <style>
+        .details{
+            width: 600px
+        }
+        .details img{
+            width: 590px
+        }
+    </style>
+    <script type="text/javascript">
+        // 加载数据
+        function initData(parm) {
+            $('#dg').datagrid({
+                url: '../../goods_adminSearch.action',
+                columns: [[
+                    {
+                        field: 'goodsName',
+                        title: '<a href="setting.html">商品名称1</a>',
+                        width: 100,
+                        align: 'center',
+                        styler: function (value, row, index) {
+                            return 'height:40px;color:red;';
+                        }
+                    },
+                    {field: 'goodsFullName', title: '商品全称', width: 120},
+                    {
+                        field: 'goodsSn', title: '商品编号', width: 80, formatter: function (value, row, index) {
+                            return row.goodsSn;
+                        }
+                    },
+
+                    {
+                        field: 'goodsPrice', title: '单价', width: 50, formatter: function (value, row, index) {
+                            return row.goodsPrice;
+                        },
+                        styler: function (value, row, index) {
+                            return 'color:green;';
+                        }
+                    },
+                    {
+                        field: 'goodsStatus', title: '状态', width: 50, formatter: function (value, row, index) {
+                            return row.status.statusName;
+                        },
+                        styler: function (value, row, index) {
+                            return 'color:blue;';
+                        }
+                    },
+                    {
+                        field: 'goodsNum', title: '库存', width: 50, formatter: function (value, row, index) {
+                            return row.goodsNum;
+                        },
+                        styler: function (value, row, index) {
+                            return 'color:red;';
+                        }
+                    },
+                    {
+                        field: 'goodsSource', title: '来源', width: 40, formatter: function (value, row, index) {
+                            if (row.goodsSource == 1) {
+                                return "自营";
+                            }
+                            return "客户";
+                        }
+                    },
+                    {field: 'goodsKeywords', title: '关键字', width: 60},
+                    {
+                        field: 'gmtModified', title: '修改日期', width: 70, formatter: function (value, row, index) {
+                            return row.gmtModified;
+                        }
+                    },
+                    {field: 'goodsModifyReason', title: '上次修改原因', width: 90},
+                    {
+                        field: 'xxx', title: '操作', width: 130, formatter: function (value, row, index) {
+                            if (row.goodsSource == 1) {
+                                if (row.goodsStatus == 6) {
+                                    return;
+                                }
+
+                                if ( row.goodsStatus>1 ){
+                                    return"<a href='#'class='btn text-red' style='color: red;' onclick='del(" + row.id + ")'>删除</a>";
+                                }
+                                return "<a href='#' class='btn ' onclick='edit(" + row.id + ")'>修改</a> | " +
+                                    "<a href='#' class='btn ' style='color: red;' onclick='del(" + row.id + ")'>删除</a>";
+                            } else {
+                                return "<a href='#' class='btn text-red' disabled='true'>操作</a> | ";
+                            }
+                        }
+                    }
+                ]],
+                striped: true,
+                // 显示分页工具条
+                pagination: true,
+                pagePosition: "bottom",
+                // 初始化的页数
+                pageNumber: 1,
+                // 每页显示记录数:
+                pageSize: 10,
+                // 分页工具条中下拉列表中的值：
+                pageList: [5, 10, 15, 20],
+
+                queryParams: parm,
+                onClickRow: function (rowIndex, rowData) {
+                    var id = rowData.id;
+                    var status = rowData.goodsStatus;
+                    $.ajax({
+                        type: 'POST',
+                        url: '../../goods_find.action',
+                        dataType: 'json',
+                        data: {id: id},
+                        cache: false,
+                        success: function (data) {
+                            var status = data.goodsStatus;
+                            var type = data.type;
+                            $("#name").html(data.goodsName);
+                            $("#full_name").html(data.goodsFullName);
+                            $("#cover").attr("src", "../../upload/" + data.goodsCover);
+                            $("#detail").html(data.goodsDetail);
+                            if (data.status != null){
+                                $("#status").html(data.status.statusName);
+                            }else {
+                                $("#status").html(data.goodsStatus);
+                            }
+                            if (type != null){
+                                $("#type").html(data.type.typeName);
+                            } else {
+                                $("#type").html(data.goodsType);
+                            }
+                            $("#num").html(data.goodsNum);
+                            $("#price").html(data.goodsPrice);
+                            $("#create_date").html(data.gmtCreate);
+                            $("#amend_date").html(data.gmtModified);
+                            $("#amend_cause").html(data.goodsModifyReason);
+                            $("#sn").html(data.goodsSn);
+                            if (data.goodsSource==1){
+                                $("#source").html("跳蚤市场");
+                            }else {
+                                $("#source").html("商家");
+                            }
+                            if (data.method == null || data.method == ""){
+                                $("#shipping_method").html(data.shippingMethod);
+                            }else {
+                                $("#shipping_method").html(data.method.method);
+                            }
+                            $("#keyword").html(data.goodsKeywords);
+                            $("#view_num").html(data.goodsPageView);
+                            $("#from").html(data.goodsOwner);
+                            if (data.goodsOwner==1){
+                                $("#from").html("刘天佑");
+                            }else {
+                                $("#from").html("商家");
+                            }
+                            $("#info_btn").click();
+                            if (status>1){
+                                $("#check").attr("disabled",true);
+                            }else {
+
+                                $("#check").attr("disabled",false);
+                            }
+                            $("#check").click(function () {
+                                check(data.id);
+                                $("#close").click();
+                            });
+                        }
+                    });
+                },
+
+                toolbar: [{
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        // 弹出窗口:
+                        $("#winAdd").window("open");
+                    }
+                }]
+
+            });
+        }
+        // 初始化加载数据
+        function load() {
+            initData({})
+        }
+
+        //
+        $(function () {
+            // 首次加载 商品数据
+            load();
+            // 加载商品类型
+            loadDepartment2("#type1");
+            // 根据商品价格进行搜索
+            $("#search_price").click(function () {
+                searchByPrice();
+                return false;
+            });
+            // 根据商品数量进行搜索
+            $("#search_num").click(function () {
+                searchByNum();
+                return false;
+            });
+            // 只显示平台自营商品数据
+            $("#show_self_goods_btn").click(function () {
+                searchBySelfGoods();
+                return false;
+            });
+            $("#check_btn").click(function () {
+                initData({
+                    goodsStatus: 1
+                });
+            });
+            $("#no_remove").click(function () {
+                initData({
+                    goodsStatus: 6,
+                    isNot : 1
+                });
+            });
+
+        });
+
+        // 编辑图片
+        function edit_img(id, src) {
+            $("#img").attr("src", src);
+            $("#change_cancel").click();
+        }
+
+        // 根据type 查询
+        function searchByType(type,name) {
+            initData({goodsType:type});
+            $("#type_name").html(name)
+        }
+
+        // 根据 价格搜索
+        function searchByPrice() {
+            var min = $("#price_min").val();
+            var max = $("#price_max").val();
+            initData({
+                goodPriceMin:min,
+                goodPriceMax:max
+            });
+        };
+        // 根据商品数量进行搜索
+        function searchByNum() {
+            var min = $("#num_min").val();
+            var max = $("#num_max").val();
+            initData({
+                numMin:min,
+                numMax:max
+            });
+        };
+        // 只显示平台自营商品
+        function searchBySelfGoods() {
+            initData({
+                goodsSource:1
+            });
+        };
+        function check(id) {
+            $.ajax({
+                type: 'POST',
+                url: '../../goods_updateGoods.action',
+                dataType: 'json',
+                cache: false,
+                data:{
+                    goodsStatus : 2,
+                    id : id
+                },
+                success: function (data) {
+                    $.messager.show({
+                        title: '提示消息',
+                        msg: data.msg,
+                        timeout: 5000,
+                        showType: 'slide'
+                    });
+                    $("#dg").datagrid("reload");
+                }
+            });
+        }
+        //加载类型
+        function loadDepartment2(id) {
+            var target = $(id).next();
+            $.ajax({
+                type: 'POST',
+                url: '../../goodsType_list.action',
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    target.html("");
+                    for (var d in data) {
+                        target.append("<li><a href='#' onclick='searchByType("+data[d]['typeId']+",\""+data[d]['typeName']+"\")'>" + data[d]['typeName'] + "</a></li>");
+                    }
+                }
+            });
+        }
+
+        // 修改商品
+        function edit(id) {
+            var url = "../../administrator_find.action?goodId="+id;
+            window.location.href = url;
+            this.event.stopPropagation();
+        }
+
+        // 删除
+        function del(id) {
+            $.post("../../goods_delete.action", {"id": id}, function (data) {
+                $.messager.show({
+                    title: '提示消息',
+                    msg: data.msg,
+                    timeout: 5000,
+                    showType: 'slide'
+                });
+                $("#dg").datagrid("reload");
+            }, "json");
+            this.event.stopPropagation();
+        }
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+    </script>
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a id="show_self_goods_btn" href="#">不显示客户商品</a></li>
+
+            </ul>
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input style="width: 100px" type="number" id="price_min"  class="form-control" placeholder="最小价格">
+                    - <input style="width: 100px" type="number" id="price_max" class="form-control" placeholder="最大价格">
+                </div>
+
+                <button  id="search_price" class="btn btn-default">Submit</button>
+            </div>
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input style="width: 100px" id="num_min" type="number"  class="form-control" placeholder="最小库存">
+                    - <input style="width: 100px" id="num_max" type="number" class="form-control" placeholder="最大库存">
+                </div>
+                <button  id="search_num" class="btn btn-default">Submit</button>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a id="check_btn" style="color: red;" href="#">商品审核</a></li>
+                <li><a id="no_remove" style="color: red;" href="#">不显示已删除商品</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a  id="type_name">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" id="type1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">商品类型 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<table class="table table-striped" id="dg"></table>
+
+
+<button id="info_btn" type="button" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal"
+        data-target="#myModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">商品详情</h4>
+            </div>
+            <div class="modal-body">
+                <div style="width: 780px;height: auto;margin-left: 60px;">
+                    <table class="table table-striped">
+                        <h2 align="center" style="color: #5c5c5c;">商品详情展示</h2>
+                        <tr>
+                            <th style="width: 100px">商品名称</th>
+                            <td id="name">花花公子</td>
+                        </tr>
+                        <tr>
+                            <th>商品全称</th>
+                            <td id="full_name">飞机上的花费时间觉得很发家史</td>
+                        </tr>
+                        <tr>
+                            <th>商品封面</th>
+                            <td><img id="cover" style="width: 100px" src=""></td>
+                        </tr>
+                        <tr>
+                            <th>商品详情</th>
+                            <td class="details"  id="detail"></td>
+                        </tr>
+                        <tr>
+                            <th>商品审核状态</th>
+                            <td id="status">方式</td>
+                        </tr>
+                        <tr>
+                            <th>商品分类</th>
+                            <td id="type">感到反感</td>
+                        </tr>
+                        <tr>
+                            <th>商品数量</th>
+                            <td id="num">42</td>
+                        </tr>
+                        <tr>
+                            <th>商品价格</th>
+                            <td id="price">423</td>
+                        </tr>
+                        <tr>
+                            <th>创建日期</th>
+                            <td id="create_date">的萨芬</td>
+                        </tr>
+                        <tr>
+                            <th>修改日期</th>
+                            <td id="amend_date">发生发射点</td>
+                        </tr>
+                        <tr>
+                            <th>修改原因</th>
+                            <td id="amend_cause">发撒艾弗森</td>
+                        </tr>
+                        <tr>
+                            <th>商品编号</th>
+                            <td id="sn">法国撒</td>
+                        </tr>
+                        <tr>
+                            <th>商品来源</th>
+                            <td id="source">很舒服的</td>
+                        </tr>
+                        <tr>
+                            <th>配送方式</th>
+                            <td id="shipping_method">和地方的</td>
+                        </tr>
+                        <tr>
+                            <th>商品关键词</th>
+                            <td id="keyword">热狗</td>
+                        </tr>
+                        <tr>
+                            <th>浏览量</th>
+                            <td id="view_num">634</td>
+                        </tr>
+                        <tr>
+                            <th>拥有者</th>
+                            <td id="from">能否夺冠的</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="check" class="btn btn-primary">审核通过</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

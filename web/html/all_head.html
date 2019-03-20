@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+/**
+*@author: zhh
+*@time: 2019/3/14 19:37
+*/
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tou</title>
+    <script type="text/javascript" src="../static/jquery/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="../static/local/js/fly.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/local/css/homepage.css">
+    <link rel="stylesheet" href="../static/local/css/test.css">
+    <link rel="stylesheet" href="/static/local/css/animate.min.css">
+</head>
+<body>
+<div id="header" class="header">
+    <div class="main" >
+        <span id="header-logo" style="display: flex;justify-content: left;align-items: center;"><img style="height: 35px;margin-right: 10px;" src="/static/images/logo.png" alt=""><span>跳蚤市场</span></span>
+        <ul style="margin-left: 55px">
+            <li id="navbar-homepage"  ><a  href="../control_index.action"  target="_self">首页</a></li>
+            <li id="navbar-apk"><a class="barActive" href="../control_shop.action" target="_self">自营商城</a></li>
+            <li id="navbar-game"><a href="../control_forum.action" target="_self">跳蚤论坛</a></li>
+            <li id="navbar-market"><a href="../control_app.action" target="_self">跳蚤市场APP</a></li>
+            <li id="navbar-contact"><a href="../control_linkUs.action" target="_self">联系我们</a></li>
+            <li id="navbar-about"><a href="../control_aboutUs.action" target="_self">关于我们</a></li>
+        </ul>
+        <!--购物车图标-->
+        <a href="../cart_lsCarts.action"><img class="topCart" id="cart" width="30px" height="30px" src="../static/local/img/topCart.png" /></a>
+        <!--购物车徽标-->
+        <p class="cartNum"><a href="#"> <span class="badge" style="background-color: #888">0</span></a></p>
+        <div id="loginOrNot" class="photoAndName">
+            <a href="../main_login.action">登录</a>&nbsp;&nbsp;<a style="display: inline" href="../main_register.action">注册</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

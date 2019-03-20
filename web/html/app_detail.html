@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>跳蚤市场APP - 让你的闲置更有价值</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="跳蚤市场，出售闲置，淘二手。"/>
+    <script type="text/javascript" src="../static/jquery/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="../static/local/js/fly.js"></script>
+    <script type="text/javascript" src="../static/local/js/carousel.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/local/css/homepage.css">
+    <link rel="stylesheet" href="../static/local/css/app.css">
+    <link rel="stylesheet" href="../static/local/css/animate.min.css">
+    <link rel="stylesheet" href="../static/local/css/test.css">
+    <link rel="stylesheet" href="../static/local/css/bottom.css">
+
+    <link rel="stylesheet" href="/static/local/css/homepage.css">
+    <link rel="stylesheet" href="/static/local/css/animate.min.css">
+    <script src="/static/local/js/weui.js"></script>
+
+    <script >
+
+        //检测登录
+        $(function () {
+            $.post("../customer_getCustomerInfo.action",function (data) {
+                if(data.msg=="ok"){
+                    $("#loginOrNot").html("<div style='float: left;'> <img src='../upload/"+data.photo+"' class='photo img-circle'/></div>")
+                    $("#loginOrNot").append("&nbsp;&nbsp;<div style='float:left; margin-left: 10px;margin-top: 5px'> <a style='font-size: 14px'>" +data.nickName+"</a></div>");
+                    $("#loginOrNot").click(
+                        function () {
+                            window.location.href="../customer_infoUI.action";
+                        }
+
+                    );
+                }
+            },"json");
+        })
+    </script>
+</head>
+
+
+<body data-uid="0" data-request-app="Web" data-request-hash="f1e54ba4po0yqx" style="margin: 0;;">
+<script>
+    var pathname = window.location.pathname;
+    if (pathname.indexOf('/apk/com.coolapk.market') == 0) {
+        document.getElementById('navbar-market').classList.add('header-active');
+    } else if (pathname.indexOf('/apk') == 0) {
+        document.getElementById('navbar-apk').classList.add('header-active');
+    } else if (pathname.indexOf('/game') == 0) {
+        document.getElementById('navbar-game').classList.add('header-active');
+    } else if (pathname.indexOf('/about/contact') == 0) {
+        document.getElementById('navbar-contact').classList.add('header-active');
+    } else if (pathname.indexOf('/about/about') == 0) {
+        document.getElementById('navbar-about').classList.add('header-active');
+    } else if (pathname.indexOf('/feed') == 0) {
+
+    } else {
+        document.getElementById('navbar-homepage').classList.add('header-active');
+    }
+</script>
+<div id="header" class="header">
+    <div class="main">
+        <span id="header-logo" style="display: flex;justify-content: left;align-items: center;"><img
+                style="height: 35px;margin-right: 10px;" src="/static/images/logo.png" alt=""><span>跳蚤市场</span></span>
+        <ul style="margin-left: 92px">
+            <li id="navbar-homepage"><a href="../main_index.action" target="_self">首页</a></li>
+            <li id="navbar-apk"><a  href="../main_shop.action" target="_self">自营商城</a></li>
+            <li id="navbar-game"><a href="../main_forum.action" target="_self">跳蚤论坛</a></li>
+            <li id="navbar-market"><a  class="barActive" href="../main_app.action" target="_self">跳蚤市场APP</a></li>
+            <li id="navbar-about"><a href="../main_aboutUs.action" target="_self">关于我们</a></li>
+        </ul>
+        <!--购物车图标-->
+        <a href="../cart_lsCarts.action"><img class="topCart" id="cart" width="30px" height="30px"
+                                              src="../static/local/img/topCart.png"/></a>
+        <!--购物车徽标-->
+        <p class="cartNum" style="width: 40px;"><a href="#"> <span class="badge" style="background-color: #888">0</span></a></p>
+        <div id="loginOrNot" class="photoAndName">
+            <a href="../main_login.action">登录</a>&nbsp;&nbsp;<a style="display: inline" href="../main_register.action">注册</a>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //计算购物车徽标位置
+        function measureNum() {
+            var temleft = $(".topCart").offset().left;
+            var temTop = $(".cartNum").offset().top = $(".topCart").offset().top;
+            $(".cartNum").css({position: "absolute", left: temleft + 15, top: temTop - 7});
+        }
+
+        measureNum();
+        $(window).resize(function () {
+            measureNum();
+        });
+        changeNum();
+    });
+
+    //修改购物车的数量
+    function changeNum() {
+        $.post("../cart_countCart.action", function (data) {
+            $(".badge").html(data.toString());
+        }, "json");
+    }
+</script>
+<div id="main">
+    <div id="first_screen">
+        <div id="canvas-box">
+            <canvas id="canvas"></canvas>
+        </div>
+        <div id="main-content">
+            <div class="text-group">
+                <div class="weui-flex logo-box">
+                    <div class="weui-flex__item">
+                        <img class="logo" src="/static/images/icon.png" alt="跳蚤">
+                    </div>
+                </div>
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <p class="title">跳蚤市场</p>
+                        <p class="sub-title mobile-display">和你一起，让闲置更有价值</p>
+                        <p class="sub-title pc-display">让闲置更有价值<br>无中间商赚差价</p>
+                    </div>
+                </div>
+                <div class="download-group">
+                    <div>
+                        <img class="qrcode" src="/static/images/image.png" alt="扫码下载APP">
+                    </div>
+                    <div class="button-box">
+                        <a href="../customer_download.action?type=android"><img src="/static/images/android.png" alt="立即下载"></a>
+                        <a href="https://www.apple.com/cn/ios/app-store/"><img src="/static/images/iphone.png" alt="立即下载"></a>
+                    </div>
+                </div>
+                <div id="mobile-download-box" class="weui-flex">
+                    <div class="weui-flex__item">
+                        <div class="mobile-download-button-box">
+                            <a href="../customer_download.action" ><img src="/static/images/download_now.png" alt="立即下载"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-flex image-group">
+                <div class="weui-flex__item large-image-box">
+                    <img class="large-image" src="/static/images/first_screen.png" alt="首屏">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui_ex_page background-gray">
+        <div class="page-image-left">
+            <div class="text-group">
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <img class="page-icon" src="/static/images/shoujiba_page_icon.png" alt="手机吧">
+                    </div>
+                </div>
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <p class="title">手机吧来了</p>
+                        <p class="sub-title">机友走心干货，酷友真实点评</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-flex image-group">
+                <div class="weui-flex__item large-image-box">
+                    <img class="large-image" src="/static/images/shoujiba.png" alt="手机吧">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui_ex_page">
+        <div class="page-homepage">
+            <div class="weui-flex">
+                <div class="weui-flex__item">
+                    <img class="page-icon" src="/static/images/homepage_icon.png" alt="首页">
+                </div>
+            </div>
+            <div class="weui-flex">
+                <div class="weui-flex__item">
+                    <p class="title">多样新首页</p>
+                    <p class="sub-title">频道入口更清晰，想看哪个看哪个</p>
+                </div>
+            </div>
+            <div class="weui-flex">
+                <div class="weui-flex__item large-image-box">
+                    <img class="large-image" src="/static/images/homepage.png" alt="首页">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui_ex_page background-gray">
+        <div class="page-image-right">
+            <div class="text-group">
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <img class="page-icon" src="/static/images/shoucangjia_page_icon.png" alt="收藏夹">
+                    </div>
+                </div>
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <p class="title">收藏大升级</p>
+                        <p class="sub-title">优质内容，任性分组</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-flex image-group">
+                <div class="weui-flex__item large-image-box">
+                    <img class="large-image" src="/static/images/shoucangjia.png" alt="收藏夹">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui_ex_page">
+        <div class="page-image-left">
+            <div class="text-group">
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <img class="page-icon" src="/static/images/zhibo_page_icon.png" alt="手机吧">
+                    </div>
+                </div>
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <p class="title">发布会直播</p>
+                        <p class="sub-title">和百万酷友一起看直播，聊新机</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-flex image-group">
+                <div class="weui-flex__item large-image-box">
+                    <img class="large-image" src="/static/images/zhibo.png" alt="手机吧">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui_ex_page background-gray">
+        <div class="page-image-right">
+            <div class="text-group">
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <img class="page-icon" src="/static/images/beifendan_page_icon.png" alt="收藏夹">
+                    </div>
+                </div>
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <p class="title">应用备份单</p>
+                        <p class="sub-title">一键备份应用列表，再不怕丢失</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-flex image-group">
+                <div class="weui-flex__item large-image-box">
+                    <img class="large-image" src="/static/images/beifendan.png" alt="收藏夹">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui_ex_page">
+        <div class="h72"></div>
+        <div class="pc72"></div>
+        <div class="weui-flex">
+            <div class="weui-flex__item">
+                <p class="title">跳蚤市场，年轻人的二手社区</p>
+                <p class="sub-title">多彩功能，丰富内容，畅享科技新生活</p>
+            </div>
+        </div>
+        <div class="nine-icon-box">
+            <div  class="icon-box">
+                <img class="icon-image" src="/static/images/app_icon.png" alt="应用游戏">
+                <p class="icon-text">应用游戏</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/huati_icon.png" alt="话题">
+                <p class="icon-text">丰富话题</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/kutu_icon.png" alt="酷图">
+                <p class="icon-text">精美酷图</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/wode_icon.png" alt="我的">
+                <p class="icon-text">酷友动态</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/zhibo_icon.png" alt="应用吧">
+                <p class="icon-text">发布会直播</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/shoujiba_icon.png" alt="手机吧">
+                <p class="icon-text">手机吧</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/kankanhao_icon.png" alt="看看号">
+                <p class="icon-text">看看号</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/shoucangjia_icon.png" alt="收藏单">
+                <p class="icon-text">收藏单</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/yingyongji_icon.png" alt="应用集">
+                <p class="icon-text">应用集</p>
+            </div>
+        </div>
+        <div class="pc72"></div>
+        <div class="h72"></div>
+    </div>
+    <div class="weui_ex_page background-gray">
+        <div class="pc72"></div>
+        <div class="h72"></div>
+        <div class="weui-flex">
+            <div class="weui-flex__item">
+                <p class="title">在探索的道路上，不断前行</p>
+                <p class="sub-title">和你一起，不断探索，一同前行</p>
+            </div>
+        </div>
+        <div class="nine-icon-box">
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/shiyanshi_icon.png" alt="实验室">
+                <p class="icon-text">实验室</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/zidingyi_icon.png" alt="自定义设置">
+                <p class="icon-text">自定义设置</p>
+            </div>
+            <div class="icon-box">
+                <img class="icon-image" src="/static/images/houtaichunjing_icon.png" alt="后台纯净">
+                <p class="icon-text">后台纯净</p>
+            </div>
+            <div class="icon-box icon-box2">
+                <img class="icon-image" src="/static/images/kaifazhe_icon.png" alt="开发者平台">
+                <p class="icon-text">开发者平台</p>
+            </div>
+            <div class="icon-box icon-box2">
+                <img class="icon-image" src="/static/images/shipinbofang_icon.png" alt="微发现">
+                <p class="icon-text">视频播放</p>
+            </div>
+        </div>
+        <div class="h72"></div>
+        <div class="pc72"></div>
+    </div>
+    <div class="weui_ex_page page-download">
+        <div class="h72"></div>
+        <div class="pc72"></div>
+        <div class="weui-flex">
+            <div class="weui-flex__item">
+                <p class="title">打开跳蚤市场，发现新生活</p>
+                <p class="sub-title">在这里，玩科技，聊话题，享生活</p>
+            </div>
+        </div>
+        <div class="weui-flex download-qrcode">
+            <div class="weui-flex__item">
+                <img src="/static/images/image.png" alt="扫码下载APP">
+                <p>扫码下载APP</p>
+            </div>
+        </div>
+        <div class="weui-flex" id="page-download-mobile-box">
+            <div class="weui-flex__item">
+                <div class="mobile-download-button-box">
+                    <a href="/qr/download?type=android"><img class="icon-image" src="/static/images/android_white.png" alt="安卓下载"></a>
+                    <a href="/qr/download?type=ios"><img class="icon-image" src="/static/images/iphone_white.png" alt="iPhone下载"></a>
+                </div>
+            </div>
+        </div>
+        <div id="page-download-pc-box">
+            <a href="/qr/download?type=android"><img class="icon-image" src="/static/images/android_white.png" alt="Android下载"></a>
+            <a href="/qr/download?type=ios"><img class="icon-image" src="/static/images/iphone_white.png" alt="iPhone下载"></a>
+        </div>
+        <div class="pc72"></div>
+        <div class="h72"></div>
+    </div>
+</div>
+<script>
+    window.addEventListener("load", function () {
+        var timer = 0;
+        var innerWidth = 0;
+        var innerHeight = 0;
+        var contentHeight = document.getElementById('main-content').offsetHeight;
+        function initialize() {
+            innerWidth = window.innerWidth
+                || document.documentElement.clientWidth || document.body.clientWidth;
+            innerHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        }
+        function drawCanvas() {
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext("2d");
+            console.log(contentHeight);
+            if (innerWidth > 1000) {
+                if (innerHeight < contentHeight) {
+                    innerHeight = contentHeight;
+                }
+                if (contentHeight < 750) {
+                    innerHeight = 750;
+                }
+                document.getElementById('main-content').style.height = innerHeight + 'px';
+            } else {
+                if (innerHeight < document.getElementById('main-content').offsetHeight) {
+                    innerHeight = document.getElementById('main-content').offsetHeight;
+                }
+                document.getElementById('main-content').style.height = contentHeight + 'px';
+            }
+            console.log(innerHeight);
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            document.getElementById('canvas-box').style.height = innerHeight + 'px';
+            document.getElementById('first_screen').style.height = innerHeight + 'px';
+
+            ctx.lineWidth = 0;
+            ctx.strokeStyle = '#d54d00';
+            ctx.beginPath();
+            ctx.moveTo(0, 0.55 * innerHeight);
+            ctx.lineTo(0.3 * innerWidth, innerHeight);
+            ctx.lineTo(0, innerHeight);
+            ctx.lineTo(0, 0,55 * innerHeight);
+            ctx.stroke();
+            ctx.fillStyle = "#d54d00";
+            ctx.fill();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, 0.55 * innerHeight);
+            ctx.lineTo(0.3 * innerWidth, innerHeight);
+            ctx.lineTo(0.4 * innerWidth, innerHeight);
+            ctx.lineTo(0.6 * innerWidth, 0);
+            ctx.lineTo(0, 0);
+            ctx.stroke();
+            ctx.fillStyle = "#ff5300";
+            ctx.fill();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.moveTo(0.6 * innerWidth, 0);
+            ctx.lineTo(0.75 * innerWidth, 0);
+            ctx.lineTo(innerWidth, 0.3 * innerHeight);
+            ctx.lineTo(innerWidth, innerHeight);
+            ctx.lineTo(0.4 * innerWidth, innerHeight);
+            ctx.lineTo(0.6 * innerWidth, 0);
+            ctx.stroke();
+            ctx.fillStyle = "#e24e00";
+            ctx.fill();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.moveTo(0.75 * innerWidth, 0);
+            ctx.lineTo(innerWidth, 0);
+            ctx.lineTo(innerWidth, 0.3 * innerHeight);
+            ctx.lineTo(0.75 * innerWidth, 0);
+            ctx.stroke();
+            ctx.fillStyle = "#d54d00";
+            ctx.fill();
+            ctx.closePath();
+        }
+        function initCanvas() {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                if (window.innerWidth != innerWidth) {
+                    document.getElementById('main-content').style.height = '';
+                    document.getElementById('canvas-box').style.height = '';
+                    document.getElementById('first_screen').style.height = '';
+                    var canvas = document.getElementById('canvas');
+                    canvas.width = 0;
+                    canvas.height = 0;
+                    timer = 0;
+                    innerWidth = 0;
+                    innerHeight = 0;
+                    contentHeight = document.getElementById('main-content').offsetHeight;
+                    initialize();
+                    drawCanvas();
+                }
+            }, 200);
+        }
+        window.addEventListener("resize", initCanvas);
+        initCanvas();
+    });
+</script>
+<script type="text/javascript">
+    // stat script 1
+</script>
+
+<style>
+    ul {
+        padding-inline-start: 0px;
+    }
+</style>
+<div style="display:none">
+    <!-- stat script 2 -->
+</div>
+<div>
+    <div _ngcontent-c3="" class="footer">
+        <div _ngcontent-c3="" class="container">
+            <div _ngcontent-c3="" class="siteinfo">
+                <ul _ngcontent-c3="" class="nav-footer">
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">订单服务 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3="">
+                                <a href="javascript:void(0)">购买指南</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">支付方式</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">送货政策</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">服务支持 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">售后服务</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3=""
+                                                    href="javascript:void(0)">维修门店</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">零售门店</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">自助服务 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3=""><a _ngcontent-c3=""
+                                                    href="javascript:void(0)">热点咨询</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">预约购买</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">订单物流</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">媒体中心 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">新闻动态</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">官方视频</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">图片资源</a></li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">关于公司 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">公司简介</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">加入我们</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">荣誉奖项</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">关注我们</h3>
+                        <ul _ngcontent-c3="">
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)" target="_blank">新浪微博</a>
+                            </li>
+                            <li _ngcontent-c3="" class="weixin"><a _ngcontent-c3="">官方微信</a>
+                                <div _ngcontent-c3="" class="mask"></div>
+                                <div _ngcontent-c3="" class="qrcode">
+                                    <div _ngcontent-c3="" class="close-btn"></div>
+                                    <h4 _ngcontent-c3="">锤子科技官方微信</h4> <h6 _ngcontent-c3="">
+                                    打开微信，点击右上角的“+”，选择“扫一扫”功能，用摄像头对准下方二维码即可。</h6>
+                                    <div _ngcontent-c3="" class="qrcode-bg"></div>
+                                </div>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)"
+                                                    target="_blank">联系我们</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul _ngcontent-c3="" class="service">
+                    <li _ngcontent-c3="" class="tel">400 - 888 - 8888</li>
+                    <li _ngcontent-c3="" class="time">周一到周日 9:00 - 18:00</li>
+                    <li _ngcontent-c3="" class="desc">(仅收市话费)</li>
+                    <li _ngcontent-c3="" class="online"><a _ngcontent-c3=""
+                                                           href="javascript:void(0)"><span
+                            _ngcontent-c3="" class="smartisan-icon info-question"></span>在线帮助</a></li>
+                </ul>
+            </div>
+            <div _ngcontent-c3="" class="copyright"><h4 _ngcontent-c3="">Copyright © <span _ngcontent-c3=""
+                                                                                           copyright-year=""></span>2019,
+                FleaMarket Digital Co., Ltd. All Rights Reserved.</h4> <h5 _ngcontent-c3="" class="company">
+                北京跳蚤科技有限公司</h5>
+                <h6 _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)" target="_blank"> <span
+                        _ngcontent-c3="">京 ICP 备 14041720 号 - 1</span><span
+                        _ngcontent-c3="">京 ICP 证 140622 号</span><span
+                        _ngcontent-c3="">京公网安备 11010502025474</span> </a> <a _ngcontent-c3=""
+                                                                             href="javascript:void(0)"
+                                                                             target="_blank"><span _ngcontent-c3="">网络文化经营许可证京网文 (2016) 2284 - 266 号</span></a>
+                </h6></div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F7132d8577cc4aa4ae4ee939cd42eb02b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</html>

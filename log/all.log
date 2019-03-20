@@ -1,0 +1,330 @@
+03-11 12:22:53.654 [main] INFO  com.flea.market.util.FLog
+create: topicDAO-class com.flea.market.dao.impl.TopicDAOImpl
+
+03-11 12:22:53.689 [main] INFO  com.flea.market.util.FLog
+create: administratorDAO-class com.flea.market.dao.impl.AdministratorDAOImpl
+
+03-11 12:22:53.691 [main] INFO  com.flea.market.util.FLog
+create: customerDAO-class com.flea.market.dao.impl.CustomerDAOImpl
+
+03-11 12:22:53.693 [main] INFO  com.flea.market.util.FLog
+create: cityDAO-class com.flea.market.dao.impl.CityDAOImpl
+
+03-11 12:22:53.695 [main] INFO  com.flea.market.util.FLog
+create: receiverAddressDAO-class com.flea.market.dao.impl.ReceiverAddressDAOImpl
+
+03-11 12:22:53.697 [main] INFO  com.flea.market.util.FLog
+create: cartDAO-class com.flea.market.dao.impl.CartDAOImpl
+
+03-11 12:22:53.726 [main] INFO  com.flea.market.util.FLog
+create: goodsDAO-class com.flea.market.dao.impl.GoodsDAOImpl
+
+03-11 12:22:53.728 [main] INFO  com.flea.market.util.FLog
+create: blockDAO-class com.flea.market.dao.impl.BlockDAOImpl
+
+03-11 12:22:53.730 [main] INFO  com.flea.market.util.FLog
+create: commentDAO-class com.flea.market.dao.impl.CommentDAOImpl
+
+03-11 12:22:53.732 [main] INFO  com.flea.market.util.FLog
+create: forumDAO-class com.flea.market.dao.impl.ForumDAOImpl
+
+03-11 12:22:53.734 [main] INFO  com.flea.market.util.FLog
+create: goodsStatusDAO-class com.flea.market.dao.impl.GoodsStatusDAOImpl
+
+03-11 12:22:53.736 [main] INFO  com.flea.market.util.FLog
+create: goodsTypeDAO-class com.flea.market.dao.impl.GoodsTypeDAOImpl
+
+03-11 12:22:53.738 [main] INFO  com.flea.market.util.FLog
+create: orderDAO-class com.flea.market.dao.impl.OrderDAOImpl
+
+03-11 12:22:53.740 [main] INFO  com.flea.market.util.FLog
+create: orderItemsDAO-class com.flea.market.dao.impl.OrderItemsDAOImpl
+
+03-11 12:24:15.623 [main] INFO  com.flea.market.util.FLog
+create: topicDAO : class com.flea.market.dao.impl.TopicDAOImpl
+
+03-11 12:24:15.627 [main] INFO  com.flea.market.util.FLog
+create: administratorDAO : class com.flea.market.dao.impl.AdministratorDAOImpl
+
+03-11 12:24:15.628 [main] INFO  com.flea.market.util.FLog
+create: customerDAO : class com.flea.market.dao.impl.CustomerDAOImpl
+
+03-11 12:24:15.630 [main] INFO  com.flea.market.util.FLog
+create: cityDAO : class com.flea.market.dao.impl.CityDAOImpl
+
+03-11 12:24:15.632 [main] INFO  com.flea.market.util.FLog
+create: receiverAddressDAO : class com.flea.market.dao.impl.ReceiverAddressDAOImpl
+
+03-11 12:24:15.634 [main] INFO  com.flea.market.util.FLog
+create: cartDAO : class com.flea.market.dao.impl.CartDAOImpl
+
+03-11 12:24:15.641 [main] INFO  com.flea.market.util.FLog
+create: goodsDAO : class com.flea.market.dao.impl.GoodsDAOImpl
+
+03-11 12:24:15.643 [main] INFO  com.flea.market.util.FLog
+create: blockDAO : class com.flea.market.dao.impl.BlockDAOImpl
+
+03-11 12:24:15.645 [main] INFO  com.flea.market.util.FLog
+create: commentDAO : class com.flea.market.dao.impl.CommentDAOImpl
+
+03-11 12:24:15.647 [main] INFO  com.flea.market.util.FLog
+create: forumDAO : class com.flea.market.dao.impl.ForumDAOImpl
+
+03-11 12:24:15.652 [main] INFO  com.flea.market.util.FLog
+create: goodsStatusDAO : class com.flea.market.dao.impl.GoodsStatusDAOImpl
+
+03-11 12:24:15.654 [main] INFO  com.flea.market.util.FLog
+create: goodsTypeDAO : class com.flea.market.dao.impl.GoodsTypeDAOImpl
+
+03-11 12:24:15.656 [main] INFO  com.flea.market.util.FLog
+create: orderDAO : class com.flea.market.dao.impl.OrderDAOImpl
+
+03-11 12:24:15.658 [main] INFO  com.flea.market.util.FLog
+create: orderItemsDAO : class com.flea.market.dao.impl.OrderItemsDAOImpl
+
+03-11 12:57:49.848 [main] INFO  com.flea.market.util.FLog
+create: topicDAO : class com.flea.market.dao.impl.TopicDAOImpl
+
+03-11 12:57:49.895 [main] INFO  com.flea.market.util.FLog
+create: administratorDAO : class com.flea.market.dao.impl.AdministratorDAOImpl
+
+03-11 12:57:49.905 [main] INFO  com.flea.market.util.FLog
+create: customerDAO : class com.flea.market.dao.impl.CustomerDAOImpl
+
+03-11 12:57:49.931 [main] INFO  com.flea.market.util.FLog
+create: cityDAO : class com.flea.market.dao.impl.CityDAOImpl
+
+03-11 12:57:49.939 [main] INFO  com.flea.market.util.FLog
+create: receiverAddressDAO : class com.flea.market.dao.impl.ReceiverAddressDAOImpl
+
+03-11 12:57:49.963 [main] INFO  com.flea.market.util.FLog
+create: cartDAO : class com.flea.market.dao.impl.CartDAOImpl
+
+03-11 12:57:49.978 [main] INFO  com.flea.market.util.FLog
+create: goodsDAO : class com.flea.market.dao.impl.GoodsDAOImpl
+
+03-11 12:57:49.983 [main] INFO  com.flea.market.util.FLog
+create: blockDAO : class com.flea.market.dao.impl.BlockDAOImpl
+
+03-11 12:57:50.002 [main] INFO  com.flea.market.util.FLog
+create: commentDAO : class com.flea.market.dao.impl.CommentDAOImpl
+
+03-11 12:57:50.010 [main] INFO  com.flea.market.util.FLog
+create: forumDAO : class com.flea.market.dao.impl.ForumDAOImpl
+
+03-11 12:57:50.018 [main] INFO  com.flea.market.util.FLog
+create: goodsStatusDAO : class com.flea.market.dao.impl.GoodsStatusDAOImpl
+
+03-11 12:57:50.035 [main] INFO  com.flea.market.util.FLog
+create: goodsTypeDAO : class com.flea.market.dao.impl.GoodsTypeDAOImpl
+
+03-11 12:57:50.057 [main] INFO  com.flea.market.util.FLog
+create: orderDAO : class com.flea.market.dao.impl.OrderDAOImpl
+
+03-11 12:57:50.086 [main] INFO  com.flea.market.util.FLog
+create: orderItemsDAO : class com.flea.market.dao.impl.OrderItemsDAOImpl
+
+03-11 12:57:52.293 [main] INFO  com.flea.market.util.FLog
+method list execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@3bb9a3ff
+
+03-11 12:57:52.411 [main] INFO  com.flea.market.util.FLog
+select count(id) as count from block where 1 = 1 
+
+03-11 14:07:41.883 [main] INFO  com.flea.market.util.FLog
+create: topicDAO : class com.flea.market.dao.impl.TopicDAOImpl
+
+03-11 14:07:41.886 [main] INFO  com.flea.market.util.FLog
+create: administratorDAO : class com.flea.market.dao.impl.AdministratorDAOImpl
+
+03-11 14:07:41.888 [main] INFO  com.flea.market.util.FLog
+create: customerDAO : class com.flea.market.dao.impl.CustomerDAOImpl
+
+03-11 14:07:41.890 [main] INFO  com.flea.market.util.FLog
+create: cityDAO : class com.flea.market.dao.impl.CityDAOImpl
+
+03-11 14:07:41.892 [main] INFO  com.flea.market.util.FLog
+create: receiverAddressDAO : class com.flea.market.dao.impl.ReceiverAddressDAOImpl
+
+03-11 14:07:41.893 [main] INFO  com.flea.market.util.FLog
+create: cartDAO : class com.flea.market.dao.impl.CartDAOImpl
+
+03-11 14:07:41.895 [main] INFO  com.flea.market.util.FLog
+create: goodsDAO : class com.flea.market.dao.impl.GoodsDAOImpl
+
+03-11 14:07:41.897 [main] INFO  com.flea.market.util.FLog
+create: blockDAO : class com.flea.market.dao.impl.BlockDAOImpl
+
+03-11 14:07:41.904 [main] INFO  com.flea.market.util.FLog
+create: commentDAO : class com.flea.market.dao.impl.CommentDAOImpl
+
+03-11 14:07:41.907 [main] INFO  com.flea.market.util.FLog
+create: forumDAO : class com.flea.market.dao.impl.ForumDAOImpl
+
+03-11 14:07:41.910 [main] INFO  com.flea.market.util.FLog
+create: goodsStatusDAO : class com.flea.market.dao.impl.GoodsStatusDAOImpl
+
+03-11 14:07:41.911 [main] INFO  com.flea.market.util.FLog
+create: goodsTypeDAO : class com.flea.market.dao.impl.GoodsTypeDAOImpl
+
+03-11 14:07:41.913 [main] INFO  com.flea.market.util.FLog
+create: orderDAO : class com.flea.market.dao.impl.OrderDAOImpl
+
+03-11 14:07:41.915 [main] INFO  com.flea.market.util.FLog
+create: orderItemsDAO : class com.flea.market.dao.impl.OrderItemsDAOImpl
+
+03-11 14:07:45.063 [main] INFO  com.flea.market.util.FLog
+method execute execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@6dc17b83
+
+03-11 14:07:45.067 [main] INFO  com.flea.market.util.FLog
+method list execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@158da8e
+
+03-11 14:07:45.075 [main] INFO  com.flea.market.util.FLog
+method list execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@2e005c4b
+
+03-11 14:07:45.173 [main] INFO  com.flea.market.util.FLog
+method list execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@4fb61f4a
+
+03-11 14:09:12.768 [main] INFO  com.flea.market.util.FLog
+create: topicDAO : class com.flea.market.dao.impl.TopicDAOImpl
+
+03-11 14:09:12.771 [main] INFO  com.flea.market.util.FLog
+create: administratorDAO : class com.flea.market.dao.impl.AdministratorDAOImpl
+
+03-11 14:09:12.773 [main] INFO  com.flea.market.util.FLog
+create: customerDAO : class com.flea.market.dao.impl.CustomerDAOImpl
+
+03-11 14:09:12.775 [main] INFO  com.flea.market.util.FLog
+create: cityDAO : class com.flea.market.dao.impl.CityDAOImpl
+
+03-11 14:09:12.777 [main] INFO  com.flea.market.util.FLog
+create: receiverAddressDAO : class com.flea.market.dao.impl.ReceiverAddressDAOImpl
+
+03-11 14:09:12.779 [main] INFO  com.flea.market.util.FLog
+create: cartDAO : class com.flea.market.dao.impl.CartDAOImpl
+
+03-11 14:09:12.781 [main] INFO  com.flea.market.util.FLog
+create: goodsDAO : class com.flea.market.dao.impl.GoodsDAOImpl
+
+03-11 14:09:12.783 [main] INFO  com.flea.market.util.FLog
+create: blockDAO : class com.flea.market.dao.impl.BlockDAOImpl
+
+03-11 14:09:12.790 [main] INFO  com.flea.market.util.FLog
+create: commentDAO : class com.flea.market.dao.impl.CommentDAOImpl
+
+03-11 14:09:12.793 [main] INFO  com.flea.market.util.FLog
+create: forumDAO : class com.flea.market.dao.impl.ForumDAOImpl
+
+03-11 14:09:12.795 [main] INFO  com.flea.market.util.FLog
+create: goodsStatusDAO : class com.flea.market.dao.impl.GoodsStatusDAOImpl
+
+03-11 14:09:12.796 [main] INFO  com.flea.market.util.FLog
+create: goodsTypeDAO : class com.flea.market.dao.impl.GoodsTypeDAOImpl
+
+03-11 14:09:12.798 [main] INFO  com.flea.market.util.FLog
+create: orderDAO : class com.flea.market.dao.impl.OrderDAOImpl
+
+03-11 14:09:12.801 [main] INFO  com.flea.market.util.FLog
+create: orderItemsDAO : class com.flea.market.dao.impl.OrderItemsDAOImpl
+
+03-11 14:09:15.405 [main] INFO  com.flea.market.util.FLog
+method execute execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@6dc17b83
+
+03-11 14:09:15.410 [main] INFO  com.flea.market.util.FLog
+method list execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@158da8e
+
+03-11 14:09:15.422 [main] INFO  com.flea.market.util.FLog
+method list execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@2e005c4b
+
+03-11 14:09:15.526 [main] INFO  com.flea.market.util.FLog
+method list execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@4fb61f4a
+
+03-11 14:10:36.327 [main] INFO  com.flea.market.util.FLog
+create: topicDAO : class com.flea.market.dao.impl.TopicDAOImpl
+
+03-11 14:10:36.333 [main] INFO  com.flea.market.util.FLog
+create: administratorDAO : class com.flea.market.dao.impl.AdministratorDAOImpl
+
+03-11 14:10:36.335 [main] INFO  com.flea.market.util.FLog
+create: customerDAO : class com.flea.market.dao.impl.CustomerDAOImpl
+
+03-11 14:10:36.336 [main] INFO  com.flea.market.util.FLog
+create: cityDAO : class com.flea.market.dao.impl.CityDAOImpl
+
+03-11 14:10:36.339 [main] INFO  com.flea.market.util.FLog
+create: receiverAddressDAO : class com.flea.market.dao.impl.ReceiverAddressDAOImpl
+
+03-11 14:10:36.340 [main] INFO  com.flea.market.util.FLog
+create: cartDAO : class com.flea.market.dao.impl.CartDAOImpl
+
+03-11 14:10:36.342 [main] INFO  com.flea.market.util.FLog
+create: goodsDAO : class com.flea.market.dao.impl.GoodsDAOImpl
+
+03-11 14:10:36.345 [main] INFO  com.flea.market.util.FLog
+create: blockDAO : class com.flea.market.dao.impl.BlockDAOImpl
+
+03-11 14:10:36.346 [main] INFO  com.flea.market.util.FLog
+create: commentDAO : class com.flea.market.dao.impl.CommentDAOImpl
+
+03-11 14:10:36.353 [main] INFO  com.flea.market.util.FLog
+create: forumDAO : class com.flea.market.dao.impl.ForumDAOImpl
+
+03-11 14:10:36.355 [main] INFO  com.flea.market.util.FLog
+create: goodsStatusDAO : class com.flea.market.dao.impl.GoodsStatusDAOImpl
+
+03-11 14:10:36.358 [main] INFO  com.flea.market.util.FLog
+create: goodsTypeDAO : class com.flea.market.dao.impl.GoodsTypeDAOImpl
+
+03-11 14:10:36.360 [main] INFO  com.flea.market.util.FLog
+create: orderDAO : class com.flea.market.dao.impl.OrderDAOImpl
+
+03-11 14:10:36.362 [main] INFO  com.flea.market.util.FLog
+create: orderItemsDAO : class com.flea.market.dao.impl.OrderItemsDAOImpl
+
+03-11 14:10:38.975 [main] INFO  com.flea.market.util.FLog
+method list execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@3ce1e309
+
+03-11 14:16:59.447 [main] INFO  com.flea.market.util.XMLParser
+create: topicDAO : class com.flea.market.dao.impl.TopicDAOImpl
+
+03-11 14:16:59.451 [main] INFO  com.flea.market.util.XMLParser
+create: administratorDAO : class com.flea.market.dao.impl.AdministratorDAOImpl
+
+03-11 14:16:59.452 [main] INFO  com.flea.market.util.XMLParser
+create: customerDAO : class com.flea.market.dao.impl.CustomerDAOImpl
+
+03-11 14:16:59.454 [main] INFO  com.flea.market.util.XMLParser
+create: cityDAO : class com.flea.market.dao.impl.CityDAOImpl
+
+03-11 14:16:59.456 [main] INFO  com.flea.market.util.XMLParser
+create: receiverAddressDAO : class com.flea.market.dao.impl.ReceiverAddressDAOImpl
+
+03-11 14:16:59.459 [main] INFO  com.flea.market.util.XMLParser
+create: cartDAO : class com.flea.market.dao.impl.CartDAOImpl
+
+03-11 14:16:59.461 [main] INFO  com.flea.market.util.XMLParser
+create: goodsDAO : class com.flea.market.dao.impl.GoodsDAOImpl
+
+03-11 14:16:59.465 [main] INFO  com.flea.market.util.XMLParser
+create: blockDAO : class com.flea.market.dao.impl.BlockDAOImpl
+
+03-11 14:16:59.467 [main] INFO  com.flea.market.util.XMLParser
+create: commentDAO : class com.flea.market.dao.impl.CommentDAOImpl
+
+03-11 14:16:59.475 [main] INFO  com.flea.market.util.XMLParser
+create: forumDAO : class com.flea.market.dao.impl.ForumDAOImpl
+
+03-11 14:16:59.477 [main] INFO  com.flea.market.util.XMLParser
+create: goodsStatusDAO : class com.flea.market.dao.impl.GoodsStatusDAOImpl
+
+03-11 14:16:59.481 [main] INFO  com.flea.market.util.XMLParser
+create: goodsTypeDAO : class com.flea.market.dao.impl.GoodsTypeDAOImpl
+
+03-11 14:16:59.483 [main] INFO  com.flea.market.util.XMLParser
+create: orderDAO : class com.flea.market.dao.impl.OrderDAOImpl
+
+03-11 14:16:59.484 [main] INFO  com.flea.market.util.XMLParser
+create: orderItemsDAO : class com.flea.market.dao.impl.OrderItemsDAOImpl
+
+03-11 14:17:02.849 [main] INFO  com.flea.market.dao.base.SupBaseDAO
+method list execute:com.mchange.v2.c3p0.impl.NewProxyPreparedStatement@323b36e0
+

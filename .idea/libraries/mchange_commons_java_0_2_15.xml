@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="mchange-commons-java-0.2.15">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/mchange-commons-java-0.2.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-8.0.11.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

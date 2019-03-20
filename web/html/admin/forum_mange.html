@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.css">
+    <script src="../../static/jquery/jquery-3.0.0.js" type="text/javascript"></script>
+    <script src="../../static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/themes/icon.css">
+    <script type="text/javascript" src="../../static/easy_ui/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/locale/easyui-lang-zh_CN.js"></script>
+    <style>
+        .details{
+            width: 600px
+        }
+        .details img{
+            width: 590px
+        }
+    </style>
+    <script type="text/javascript">
+        // 加载数据
+        function initData(parm) {
+            $('#dg').datagrid({
+                url: '../../forum_list.action',
+                columns: [[
+                    {
+                        field: 'forumTitle',
+                        title: '<a href="setting.html">帖子标题</a>',
+                        width: 120,
+                        align: 'center',
+                        styler: function (value, row, index) {
+                            return 'height:40px;color:red;';
+                        }
+                    },
+                    {field: 'forumPageView', title: '浏览量', width: 70},
+                    {
+                        align: 'center',
+                        field: 'customer', title: '发帖人昵称', width: 100, formatter: function (value, row, index) {
+                            return row.customer.nickName;
+                        }
+                    },
+
+                    {
+                        field: 'forumCommentCount', title: '评论量', width: 50, formatter: function (value, row, index) {
+                            return row.forumCommentCount;
+                        },
+                        align: 'center',
+                        styler: function (value, row, index) {
+                            return 'color:green;';
+                        }
+                    },
+                    {
+                        field: 'forumGmtTime', title: '发帖日期', width: 150, formatter: function (value, row, index) {
+                            return row.forumGmtTime;
+                        },
+                        styler: function (value, row, index) {
+                            return 'color:blue;';
+                        }
+                    },
+                    {
+                        field: 'forumModifyTime', title: '最近回帖日期', width: 150, formatter: function (value, row, index) {
+                            return row.forumModifyTime;
+                        },
+                        styler: function (value, row, index) {
+                            return 'color:red;';
+                        }
+                    },
+                    {
+                        field: 'forumStatus', title: '状态', width: 60, formatter: function (value, row, index) {
+                            if (row.forumStatus > 0) {
+                                return "已删除";
+                            }
+                            return "正常";
+                        }
+                    },
+                    {
+                        field: 'xxx', title: '操作', width: 100, formatter: function (value, row, index) {
+                            if (row.forumStatus == 0) {
+                                return "<a href='#'class='btn text-red' style='color: red;' onclick='del(" + row.id + ")'>删除</a>";
+
+                            }
+                        }
+                    }
+                ]],
+                striped: true,
+                // 显示分页工具条
+                pagination: true,
+                pagePosition: "bottom",
+                // 初始化的页数
+                pageNumber: 1,
+                // 每页显示记录数:
+                pageSize: 10,
+                // 分页工具条中下拉列表中的值：
+                pageList: [5, 10, 15, 20],
+
+                queryParams: parm,
+                onClickRow: function (rowIndex, rowData) {
+                    var id = rowData.id;
+
+                    var status = rowData.goodsStatus;
+                    $.ajax({
+                        type: 'POST',
+                        url: '../../forum_findById.action',
+                        dataType: 'json',
+                        data: {id: id},
+                        cache: false,
+                        success: function (data) {
+                            var customer = data.customer;
+                            $("#title").html(data.forumTitle);
+                            $("#customer_nick_name").html(customer.nickName);
+                            $("#customer_head").attr("src", "../../upload/" + customer.photo);
+                            $("#page_view").html(data.forumPageView);
+
+                            $("#count").html(data.forumCommentCount);
+                            $("#gmt").html(data.forumGmtTime);
+                            $("#mod").html(data.forumModifyTime);
+                            if (data.forumStatus>0){
+                                $("#status").html("已删除");
+                            } else {
+                                $("#status").html("正常");
+                            }
+                            $("#email").html(customer.email);
+                            $("#content").html(data.forumContent);
+                            $("#info_btn").click();
+                            if (data.forumStatus>0) {
+                                $("#check").attr("disabled", true);
+                            }else {
+                                $("#check").attr("disabled", false);
+
+                            }
+                            $("#check").click(function () {
+
+                                $("#close").click();
+                            });
+                        }
+                    });
+                },
+
+                toolbar: [{
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        // 弹出窗口:
+                        $("#winAdd").window("open");
+                    }
+                }]
+
+            });
+        }
+
+        // 初始化加载数据
+        function load() {
+            initData({})
+        }
+
+        //
+        $(function () {
+            // 首次加载 商品数据
+            load();
+            // 加载商品类型
+            loadDepartment2("#type1");
+            loadTopic("#topic");
+
+
+
+            $("#no_remove").click(function () {
+                initData({
+                    status: 0
+                });
+            });
+
+        });
+
+        // 编辑图片
+        function edit_img(id, src) {
+            $("#img").attr("src", src);
+            $("#change_cancel").click();
+        }
+
+        // blockId 查询
+        function searchByType(type, name) {
+            initData({blockId: type});
+            $("#type_name").html(name)
+        }
+
+        function searchByTopic(type, name) {
+            initData({topic: type});
+            $("#topic_name").html(name)
+        }
+
+        // 根据 价格搜索
+        function searchByPrice() {
+            var min = $("#price_min").val();
+            var max = $("#price_max").val();
+            initData({
+                goodPriceMin: min,
+                goodPriceMax: max
+            });
+        };
+
+        // 根据商品数量进行搜索
+        function searchByNum() {
+            var min = $("#num_min").val();
+            var max = $("#num_max").val();
+            initData({
+                numMin: min,
+                numMax: max
+            });
+        };
+
+        // 只显示平台自营商品
+        function searchBySelfGoods() {
+            initData({
+                goodsSource: 1
+            });
+        };
+
+
+
+        //加载类型
+        function loadDepartment2(id) {
+            var target = $(id).next();
+            $.ajax({
+                type: 'POST',
+                url: '../../block_listBlock.action',
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    target.html("");
+                    for (var d in data) {
+                        target.append("<li><a href='#' onclick='searchByType(" + data[d]['id'] + ",\"" + data[d]['blockName'] + "\")'>" + data[d]['blockName'] + "</a></li>");
+                    }
+                }
+            });
+        }
+        function loadTopic(id) {
+            var target = $(id).next();
+            $.ajax({
+                type: 'POST',
+                url: '../../topic_test.action',
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    target.html("");
+                    for (var d in data) {
+                        target.append("<li><a href='#' onclick='searchByTopic(" + data[d]['id'] + ",\"" + data[d]['topicTitle'] + "\")'>" + data[d]['topicTitle'] + "</a></li>");
+                    }
+                }
+            });
+        }
+
+
+
+        // 删除
+        function del(id) {
+            $.post("../../forum_adminDelForum.action", {"id": id}, function (data) {
+                $.messager.show({
+                    title: '提示消息',
+                    msg: data.msg,
+                    timeout: 5000,
+                    showType: 'slide'
+                });
+                $("#dg").datagrid("reload");
+            }, "json");
+            this.event.stopPropagation();
+        }
+
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+    </script>
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a id="show_self_goods_btn" href="#">论坛管理</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a id="no_remove" style="color: red;" href="#">不显示已删除商品</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="topic_name">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" id="topic" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false">论坛主题 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="type_name">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" id="type1" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false">论坛板块 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<table class="table table-striped" id="dg"></table>
+
+
+<button id="info_btn" type="button" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal"
+        data-target="#myModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">帖子详情</h4>
+            </div>
+            <div class="modal-body">
+                <div style="width: 700px;height: auto;margin-left: 60px;">
+                    <table class="table table-striped">
+                        <h2 align="center" style="color: #5c5c5c;">帖子详情展示</h2>
+                        <tr>
+                            <th style="width: 100px">帖子标题</th>
+                            <td id="title"></td>
+                        </tr>
+                        <tr>
+                            <th>发帖人</th>
+                            <td id="customer_nick_name"></td>
+                        </tr>
+                        <tr>
+                            <th>发帖人头像</th>
+                            <td><img id="customer_head" style="width: 100px" src=""></td>
+                        </tr>
+                        <tr>
+                            <th>浏览量</th>
+                            <td id="page_view"></td>
+                        </tr>
+                        <tr>
+                            <th>评论量</th>
+                            <td id="count"></td>
+                        </tr>
+                        <tr>
+                            <th>发贴日期</th>
+                            <td id="gmt"></td>
+                        </tr>
+                        <tr>
+                            <th>回帖日期</th>
+                            <td id="mod"></td>
+                        </tr>
+                        <tr>
+                            <th>帖子状态</th>
+                            <td id="status"></td>
+                        </tr>
+                        <tr>
+                            <th>发帖人邮箱</th>
+                            <td id="email"></td>
+                        </tr>
+                        <tr>
+                            <th>帖子详情</th>
+                            <td class="details" id="content"></td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="check" class="btn btn-primary">审核通过</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

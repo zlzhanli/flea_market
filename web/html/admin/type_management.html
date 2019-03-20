@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>类型管理</title>
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.css">
+    <script src="../../static/jquery/jquery-3.0.0.js" type="text/javascript"></script>
+    <script src="../../static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/themes/icon.css">
+    <script type="text/javascript" src="../../static/easy_ui/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/locale/easyui-lang-zh_CN.js"></script>
+
+    <script>
+        $(function () {
+
+            $('#type_table').datagrid({
+                url: '../../goodsType_list.action',
+                method: 'POST',
+                striped: true,
+                rowNumbers: true,
+                pagination: false,
+                pagePosition: "bottom",
+                pageSize:10,
+                columns: [[
+                    {field: 'typeId', title: 'id', width: 180, align: 'left'},
+                    {field: 'typeName', title: '类型名称', width: 150, align: 'left'},
+                    {field: 'typePid', title: '父类型id', width: 200, align: 'left'},
+                    {
+                        field: 'xxx', title: '操作', width: 130, formatter: function (value, row, index) {
+                            return "<a href='#' class='btn ' style='color: bule;' onclick='edit(" + row.typeId + ")'>修改</a> | " +
+                                "<a href='#' class='btn ' style='color: red;' onclick='del(" + row.typeId + ")'>删除</a>";
+                        }
+                    }
+                ]],
+                toolbar: [{
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        // 弹出窗口:
+                        /*$("#winAdd").window("open");*/
+                        $("#save_model").click();
+                    }
+                }],
+                onBeforeLoad: function (param) {
+                },
+                onLoadSuccess: function (data) {
+
+                },
+                onLoadError: function () {
+
+                },
+                onClickCell: function (rowIndex, field, value) {
+
+                }
+            });
+        })
+
+        function edit(id) {
+            $("#model").click();
+            var url = "../../goodsType_findById.action";
+            $.post(url,
+                {"typeId":id},
+                function(goodsType){
+                        $("#type_Name").val(goodsType.typeName);
+                        $("#type_Pid").val(goodsType.typePid);
+                        $("#type_id").val(goodsType.typeId);
+                },
+                'json')
+        }
+
+        $(function(){
+
+            $("#type_Pid").change(function () {
+                if ($(this).val()<=0){
+                    $("#error_up_pid").html("只能为数字");
+                    $("#up_type").attr('disabled',true);
+                    return;
+                }
+                $("#up_type").attr('disabled',false);
+            })
+
+            //判断修改类型输入框内容
+            $("#type_Name").change(function () {
+                $("#error_up_type").html("");
+                var up_typeName = $("#type_Name").val();
+                if (up_typeName==null||up_typeName.trim()==""){
+                    $("#error_ip_type").html("不能为空");
+                    $("#up_type").attr('disabled',disabled);
+                    return;
+                }
+                //验证类型名称输入框输入的是否为汉字
+                /!*定义验证表达式*!/
+                var reg = /^[\u4E00-\u9FA5]{2,4}$/;
+                /!*进行验证*!/
+                if (!reg.test(up_typeName)) {
+                    $("#error_up_type").html("请输入汉字");
+                    $("#up_type").attr('disabled',disabled);
+                    return;
+                }
+                $("#up_type").attr('disabled',false);
+            })
+
+            //修改的异步请求
+            $("#up_type").click(function () {
+                var typeName = $("#type_Name").val();
+                var typePid = $("#type_Pid").val();
+                var typeId = $("#type_id").val();
+                var url="../../goodsType_update.action";
+                $.post(url,
+                    {"typeName":typeName,"typePid":typePid,"typeId":typeId},
+                    function(result){
+                            //alert(result.msg);
+                            $.messager.show({
+                                title: '提示消息',
+                                msg: result.msg,
+                                timeout: 5000,
+                                showType: 'slide'
+                            });
+                            $("#type_table").datagrid("reload");
+                    },
+                    'json')
+            })
+
+
+
+            //判断添加类型输入框内容
+            $("#save_type_Name").blur(function check_typeName() {
+                $("#error_save_type").html("");
+                var save_typeNmae = $("#save_type_Name").val();
+                if (save_typeNmae==null||save_typeNmae.trim()==""){
+                    $("#error_save_type").html("不能为空");
+                    $("#save_type").attr('disabled',disabled);
+                    return;
+                }
+                //验证类型名称输入框输入的是否为汉字
+                /*定义验证表达式*/
+                var reg = /^[\u4E00-\u9FA5]{2,4}$/;
+                /*进行验证*/
+                if (!reg.test(save_typeNmae)) {
+                    $("#error_save_type").html("只能为汉字");
+                    $("#save_type").attr('disabled',disabled);
+                    return;
+                }
+            })
+
+            //添加的异步请求前的父类型id判断
+            $("#save_type_Pid").change(function () {
+                $("#error_save_pid").html("");
+                if ($(this).val()<=0){
+                    $("#error_save_pid").html("不能为空且只能为数字");
+                    $("#save_type").attr('disabled',true);
+                    return;
+                }
+                $("#save_type").attr('disabled',false);
+            })
+
+            //添加的异步请求
+            $("#save_type").click(function () {
+                var save_typeNmae = $("#save_type_Name").val();
+                var save_typePid = $("#save_type_Pid").val();
+                var url  = "../../goodsType_save.action";
+                $.post(url,
+                    {"typeName":save_typeNmae,"typePid":save_typePid},
+                    function (result) {
+                        //alert(result.msg);
+                        $.messager.show({
+                            title: '提示消息',
+                            msg: result.msg,
+                            timeout: 5000,
+                            showType: 'slide'
+                        });
+                        $("#type_table").datagrid("reload");
+                    },
+                    'json')
+            })
+        })
+
+        //删除的异步请求
+        function del(id) {
+            var url = "../../goodsType_delete.action";
+            $.post(url,
+                {"typeId":id},
+                function (data) {
+                    //alert(data.msg);
+                    $.messager.show({
+                        title: '提示消息',
+                        msg: data.msg,
+                        timeout: 5000,
+                        showType: 'slide'
+                    });
+                    $("#type_table").datagrid("reload");
+                }, 'json')
+        }
+    </script>
+</head>
+<body>
+
+<table class="table table-striped" id="type_table"></table>
+
+<!-- 添加模态框 -->
+<button id="model" hidden="hidden" data-toggle="modal" data-target="#myModal"></button>
+<button id="save_model" hidden="hidden" data-toggle="modal" data-target="#my_save_Modal"></button>
+<!-- 添加类型的表单，默认是隐藏的 -->
+<div class="modal fade" id="my_save_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" >
+                    添加类型
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-bottom: 10px;">
+                类型名称：<input id="save_type_Name" type="text" value=""><span style="color: red" id="error_save_type"></span>
+                </div>
+                <div style="margin-top: 10px;">
+                    父&nbsp;类&nbsp;型&nbsp;：<input id="save_type_Pid" type="number" value=""><span style="color: red" id="error_save_pid"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button disabled="disabled"  data-dismiss="modal" id="save_type" type="button" class="btn btn-primary">
+                    添加
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- 修改模态框 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    修改类型
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-bottom: 10px;">
+                类型名称：<input id="type_Name" type="text" value=""><span style="color: red" id="error_up_type"></span>
+                </div>
+                <div style="margin-top: 10px;">
+                父&nbsp;类&nbsp;型&nbsp;：<input id="type_Pid" type="number" value=""><span style="color: red" id="error_up_pid"></span>
+                </div>
+                <input hidden="hidden" id="type_id" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button disabled="disabled" data-dismiss="modal" id="up_type" type="button" class="btn btn-primary">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+</body>
+</html>

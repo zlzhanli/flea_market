@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>客户列表</title>
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.css">
+    <script src="../../static/jquery/jquery-3.0.0.js" type="text/javascript"></script>
+    <script src="../../static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/themes/icon.css">
+    <script type="text/javascript" src="../../static/easy_ui/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/locale/easyui-lang-zh_CN.js"></script>
+
+    <script>
+        $(function () {
+
+            $('#list_table').datagrid({
+                url: '../../customer_list.action',
+                method: 'POST',
+                striped: true,
+                pagination: true,
+                rownumbers: true,
+                pagePosition: "bottom",
+                pageList: [10, 20, 50, 100],
+                pageSize: 10,
+                columns: [[
+                    {field: 'nickName', title: '昵称', width: 100, align: 'left'},
+                    {field: 'realName', title: '真实姓名', width: 100, align: 'left'},
+                    {
+                        field: 'idCard',
+                        title: '实名情况',
+                        width: 130,
+                        align: 'left',
+                        formatter: function (value, row, index) {
+                            if (row.idCard == null) {
+                                return "已实名";
+                            }
+                            return "未实名";
+                        }
+                    },
+                    {
+                        field: 'sex', title: '性别', width: 50, align: 'left',
+                        formatter: function (value, row, index) {
+                            if (row.sex == null) {
+                                return "保密";
+                            }
+                            return row.sex;
+                        }
+                    },
+                    {field: 'email', title: '邮箱', width: 150, align: 'left'},
+                    {
+                        field: 'phone', title: '电话', width: 100, align: 'left',
+                        formatter: function (value, row, index) {
+                            if (row != null && row.phone.length > 10) {
+                                return row.phone.substr(0,3)+"****"+row.phone.substr(7,row.phone.length);
+                            }
+                            return "未知";
+                        }
+                    },
+                    {
+                        field: 'province', title: '所在地区', width: 50, align: 'left',
+                        formatter: function (value, row, index) {
+                            return row.province ;
+                        }
+                    },
+                    {field: 'gmtCreate', title: '注册日期', width: 120, align: 'left'},
+
+                ]]
+            });
+        });
+    </script>
+</head>
+<body>
+<table class="table table-striped" id="list_table"></table>
+
+</body>
+</html>

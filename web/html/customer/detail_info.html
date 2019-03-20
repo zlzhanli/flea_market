@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/local/css/item.css">
+    <link rel="stylesheet" href="../../static/local/css/item.css">
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.css">
+    <script src="../../static/jquery/jquery-3.0.0.js" type="text/javascript"></script>
+    <script src="../../static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+
+            $.ajax({
+                url:"../../customer_info.action",
+                type:"POST",
+                dataType:"json",
+                success:function (data) {
+                    if (data.realName == null || data.realName == ""){
+                        $("#name").html("未完善");
+                    } else {
+                        $("#name").html(data.realName);
+                    }
+                    if (data.email != ""){
+                        $("#email").html(data.email);
+                    } else {
+                        $("#email").html("未完善");
+                    }
+                    if (data.phone != ""){
+                        $("#phone").html(data.phone);
+                    } else {
+                        $("#phone").html("未完善");
+                    }
+                    if (data.idCard != ""){
+                        $("#id_card").html(data.idCard);
+                    } else {
+                        $("#id_card").html("未完善");
+                    }
+                    if (data.area != ""){
+                        $("#address").html(data.area);
+                    } else {
+                        $("#address").html("完善身份证信息自动填充");
+                    }
+                }
+            });
+
+            $(".edit").click(function () {
+
+                if ($(this).text() == "编辑") {
+
+                    var target = $(this).parent().prev();
+                    var value = target.text();
+                    var obj;
+                    if (target.attr("id") == "email") {
+                        obj = "<div class='form-inline'><div class='form-group'>" +
+                            "<input class='form-control ' id='email_t' type='email' value='" + value + "'/>" +
+                            "<input class='form-control ' style='width: 90px' type='text' id='email_captcha'/>" +
+                            "<input class='form-control ' onclick='get_email_captcha()' value='获取邮箱验证' type='button'/>" +
+                            "</div></div>";
+                    } else {
+                        obj = $("<input>", {
+                            val: value,
+                            type: "text",
+                            class: "form-control"
+                        });
+                    }
+                    target.html(obj);
+                    $(this).text("提交");
+                    return false;
+                }
+                if ($(this).text() == "提交") {
+                    var target = $(this).parent().prev();
+                    var value = target.children().val();
+
+                    $("#phone").popover("show");
+
+                    if (target.attr("id") == "email") {
+                        var captcha = $("#email_captcha").val();
+                        var email = $("#email_t").val();
+                        value=email;
+                        if (email==""){
+                            Toast("邮箱不能为空", 3000);
+                            return false;
+                        }
+                        if(captcha!=""){
+                            updateEmail(email,captcha);
+                        } else {
+                            Toast("邮箱验证码不能为空", 3000);
+                            return false;
+                        }
+                    } else if (target.attr("id") == "phone"){
+                        var ph = /^1[345789]\d{9}$/;
+                        res = ph.test(value);
+                        if (!res){
+                            Toast("请输入正确的电话号码");
+                            return false;
+                        }
+                        updatePhone(value);
+                    }
+                    else if (target.attr("id") == "id_card"){
+                        var ph = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+                        res = ph.test(value);
+                        if (!res){
+                            Toast("请输入正确的身份证");
+                            return false;
+                        }
+                        updateIdCard(value);
+                    }
+                    target.html(value);
+                    $(this).text("编辑");
+                }
+
+                return false;
+            });
+
+            load();
+
+            //
+
+            // 修改邮箱
+            function updateEmail(value,captcha) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../customer_bindEmail.action",
+                    dataType: "json",
+                    data: {
+                        email: value,
+                        mailCode:captcha
+                    },
+                    success: function (data) {
+                        Toast(data.msg, 3000);
+                    }
+                })
+            }
+            // 修改电话号码
+            function updatePhone(value) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../customer_updatePhone.action",
+                    dataType: "json",
+                    data: {phone: value},
+                    success: function (data) {
+                        Toast(data.msg, 3000);
+                    }
+                })
+
+            }
+
+            function updateIdCard(value) {
+                var url = "../../customer_updateIdCard.action";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: "json",
+                    data: {idCard: value},
+                    success: function (data) {
+                        Toast(data.msg, 3000);
+                        window.location.reload()
+                    }
+                })
+            }
+        });
+
+        // 瞬时弹框
+        function Toast(msg, duration) {
+            duration = isNaN(duration) ? 3000 : duration;
+            var m = document.createElement('div');
+            m.innerHTML = msg;
+            m.style.cssText = "width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(240, 240, 240);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 40%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+            document.body.appendChild(m);
+            setTimeout(function () {
+                var d = 0.5;
+                m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+                m.style.opacity = '0';
+                setTimeout(function () {
+                    document.body.removeChild(m)
+                }, d * 1000);
+            }, duration);
+        }
+        // 获取邮箱验证码
+        function get_email_captcha() {
+            var value = $("#email_t").val();
+            $.ajax({
+                type: "POST",
+                url: "../../customer_sendEmailCode.action",
+                dataType: "text",
+                data: {
+                    email: value,
+                    mailType:1
+                },
+                success: function (data) {
+                    if(data ==200){
+                        Toast("邮箱验证码已发送", 3000);
+                    } else {
+                        Toast("邮箱验证码发送失败", 3000);
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<div class="rtcont fr">
+    <div class="grzlbt ml40">详细信息</div>
+    <div class="subgrzl ml40">
+        <span>真实姓名</span>
+        <span id="name" class="item">真实姓名</span>
+    </div>
+    <div class="subgrzl ml40">
+        <span>所在地</span>
+        <span id="address" class="item"></span>
+        <span>
+            <button type="button" class="btn btn-primary edit" title="Popover title"
+                    data-container="body" data-toggle="popover" data-placement="top"
+                    data-content="顶部的 Popover 中的一些内容">编辑</button>
+        </span>
+    </div>
+    <div class="subgrzl ml40">
+        <span>邮箱地址</span>
+        <span id="email" class="item">2916396070@qq.com</span>
+        <span>
+            <button type="button" class="btn btn-primary edit" title="Popover title"
+                    data-container="body" data-toggle="popover" data-placement="top"
+                    data-content="顶部的 Popover 中的一些内容">编辑</button>
+        </span>
+    </div>
+    <div class="subgrzl ml40">
+        <span>电话号码</span>
+        <span id="phone" class="item">2344@163.com</span>
+        <span>
+            <button type="button" class="btn btn-primary edit" title="Popover title"
+                    data-container="body" data-toggle="popover" data-placement="top"
+                    data-content="顶部的 Popover 中的一些内容">编辑</button>
+        </span>
+    </div>
+    <div class="subgrzl ml40">
+        <span>身份证号码</span>
+        <span id="id_card" class="item">3523422342342342</span>
+        <span>
+            <button type="button" class="btn btn-primary edit" title="Popover title"
+                    data-container="body" data-toggle="popover" data-placement="top"
+                    data-content="顶部的 Popover 中的一些内容">编辑</button>
+        </span>
+    </div>
+
+</div>
+</body>
+</html>

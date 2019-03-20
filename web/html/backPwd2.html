@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link type="text/css" href="../static/local/css/css.css" rel="stylesheet" />
+    <script type="text/javascript" src="../static/local/js/jquery-1.8.3-min.js"></script>
+    <script type="text/javascript">
+        //导航定位
+        $(function(){
+
+            $("#getEmail").click(function () {
+                var email = $("#email").val();
+                var url = "../customer_sendEmailCode.action";
+                $.post(url,{email:email,mailType:3},function (code) {
+                    if(code=="200"){
+                        $("#span_yzm").text("发送成功")
+                    }else{
+                        $("#span_yzm").text("发送失败，请重新获取")
+                    }
+                },'json')
+            })
+                var obj = $("#span_email");
+            $("#subtijiao").click(function () {
+                var loginName = $("#userName").val();
+                var email = $("#email").val();
+                var mailCode = $("#yanzhenma").val();
+                if(loginName==""){
+                    obj.text("用户名不能为空")
+                    return;
+                }
+                if(email==""){
+                    obj.text("邮箱不能为空")
+                    return
+                }
+                if(mailCode==""){
+                    obj.text("验证码不能为空")
+                    return
+                }
+                var url = "../customer_findByLoginNameAndEmail.action";
+                $.post(url,
+                    {"loginName":loginName,"email":email,"mailCode":mailCode},
+                    function (data) {
+                        if("404"==data){
+                            obj.text("邮箱或用户名不存在")
+                        }else if(data=="500"){
+                            obj.text("验证码错误，请重新输入")
+                            $("#yanzhenma").val("");
+
+                        }else if(data=="301"){
+                            obj.text("验证码失效，请重新获取")
+                        }
+                        else{
+                            window.location.href = "../html/backPwd3.html";
+                        }
+                    },
+                    'json')
+            })
+        })
+    </script>
+</head>
+<body>
+
+<div class="content">
+    <div class="web-width">
+        <div class="for-liucheng">
+            <div class="liulist for-cur"></div>
+            <div class="liulist for-cur"></div>
+            <div class="liulist"></div>
+            <div class="liulist"></div>
+            <div class="liutextbox">
+                <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+                <div class="liutext for-cur"><em>2</em><br /><strong>验证身份</strong></div>
+                <div class="liutext"><em>3</em><br /><strong>设置新密码</strong></div>
+                <div class="liutext"><em>4</em><br /><strong>完成</strong></div>
+            </div>
+        </div><!--for-liucheng/-->
+            <div class="forget-pwd">
+            <dl>
+                <dt>验证方式：</dt>
+                <dd>
+                    <select class="selyz">
+                        <option value="1">已验证邮箱</option>
+                    </select><span id="span_email"></span>
+                </dd>
+                <div class="clears"></div>
+            </dl>
+            <dl>
+                <dt>用户名：</dt>
+                <dd><input type="text" id="userName"/></dd>
+                <div class="clears"></div>
+            </dl>
+            <dl class="sel-yzyx">
+                <dt>已验证邮箱：</dt>
+                <dd><input type="text" id="email"/></dd>
+                <div class="clears"></div>
+            </dl>
+            <dl>
+                <dt>邮箱校验码：</dt>
+                <dd><input type="text" id="yanzhenma"/><button id="getEmail">获取邮箱验证码</button><span id="span_yzm"></span></dd>
+                <div class="clears"></div>
+            </dl>
+                <div class="subtijiao"><input id="subtijiao" type="submit" value="提交" /></div>
+            </div>
+    </div><!--web-width/-->
+</div>
+</body>
+</html>

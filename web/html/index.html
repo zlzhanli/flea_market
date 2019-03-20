@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>跳蚤市场-首页</title>
+    <script type="text/javascript" src="../static/jquery/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="../static/local/js/fly.js"></script>
+    <script type="text/javascript" src="../static/local/js/carousel.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/local/css/homepage.css">
+    <link rel="stylesheet" href="../static/local/css/app.css">
+    <link rel="stylesheet" href="../static/local/css/animate.min.css">
+    <link rel="stylesheet" href="../static/local/css/test.css">
+    <link rel="stylesheet" href="../static/local/css/bottom.css">
+    <script >
+
+        //检测登录
+        $(function () {
+            $.post("../customer_getCustomerInfo.action",function (data) {
+                if(data.msg=="ok"){
+                    $("#loginOrNot").html("<div style='float: left;'> <img src='../upload/"+data.photo+"' class='photo img-circle'/></div>")
+                    $("#loginOrNot").append("&nbsp;&nbsp;<div style='float:left; margin-left: 10px;margin-top: 5px'> <a style='font-size: 14px'>" +data.nickName+"</a></div>");
+                    $("#loginOrNot").click(
+                        function () {
+                            window.location.href="../customer_infoUI.action";
+                        }
+
+                    );
+                }
+            },"json");
+            // var count = 0;
+            // setInterval(function () {
+            //     $("#onePageBg").css({
+            //         'background-image': "url(../static/local/img/404.jpg)"
+            //     });
+            //     // alert(style)
+            // },4000);
+        })
+    </script>
+    <style>
+        ul {
+            padding-inline-start: 0px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="header" class="header">
+    <div class="main">
+        <span id="header-logo" style="display: flex;justify-content: left;align-items: center;"><img
+                style="height: 35px;margin-right: 10px;" src="/static/images/logo.png" alt=""><span>跳蚤市场</span></span>
+        <ul style="margin-left: 92px">
+            <li id="navbar-homepage"><a class="barActive" href="../main_index.action" target="_self">首页</a></li>
+            <li id="navbar-apk"><a  href="../main_shop.action" target="_self">自营商城</a></li>
+            <li id="navbar-game"><a href="../main_forum.action" target="_self">跳蚤论坛</a></li>
+            <li id="navbar-market"><a href="../main_app.action" target="_self">跳蚤市场APP</a></li>
+
+            <li id="navbar-about"><a href="../main_aboutUs.action" target="_self">关于我们</a></li>
+        </ul>
+        <!--购物车图标-->
+        <a href="../cart_lsCarts.action"><img class="topCart" id="cart" width="30px" height="30px"
+                                              src="../static/local/img/topCart.png"/></a>
+        <!--购物车徽标-->
+        <p class="cartNum" style="width: 40px;"><a href="#"> <span class="badge" style="background-color: #888">0</span></a></p>
+        <div id="loginOrNot" class="photoAndName">
+            <a href="../main_login.action">登录</a>&nbsp;&nbsp;<a style="display: inline" href="../main_register.action">注册</a>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="onePage">
+        <div class="onePage-bg" id="onePageBg"></div>
+        <div class="container">
+            <div class="row">
+                <div class="title-text">
+                    <div class="col-md-12 headFontSize">
+                        <h1 class="headHlContent">
+                            跳蚤市场<br>
+                            欢迎大家来到我们的乐园<br>
+                        </h1>
+                        <p style="margin-top: 50px; line-height: 30px">在这里你可以买到所有你想要的大宝贝</p>
+                        <p class="btn-app-store" style="margin-top: 50px">
+                            <a class="btn btn-success btn-lg" href="../main_app.action">立即下载，开启跳骚市场</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="twoPage" style="border: 2px solid black">
+        <div class="container" style="width: 70%">
+            <div class="courser-text">
+                <h1>商品推荐</h1>
+                <p>下面这些商品还不错哟，快去看看吧！</p>
+            </div>
+            <div id="carousel-example-generic" class="carousel slide" data-interval="3000" style="height: 500px;width: 1111px; margin: auto">
+                <ol class="carousel-indicators" style="margin-top: 200px">
+                    <li data-target="#carousel-example-generic" data-slide="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide="1" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide="2" class="active"></li>
+                </ol>
+                <div class="carousel-inner" style="height: 500px">
+                    <div class="item active" style="height: 300px">
+                        <img src="../static/local/img/samsang.jpg">
+                    </div>
+                    <div class="item" style="height: 300px">
+                        <img src="../static/local/img/computer.PNG">
+                    </div>
+                    <div class="item" style="height: 300px">
+                        <img src="../static/local/img/5315ef2af3cef547dda5cd6fb109eaed.png">
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <span class="qlyphicon qlyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <span class="qlyphicon qlyphicon-chevron-right"></span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <div _ngcontent-c3="" class="footer">
+        <div _ngcontent-c3="" class="container">
+            <div _ngcontent-c3="" class="siteinfo">
+                <ul _ngcontent-c3="" class="nav-footer">
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">订单服务 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3="">
+                                <a href="javascript:void(0)">购买指南</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">支付方式</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">送货政策</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">服务支持 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">售后服务</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3=""
+                                                    href="javascript:void(0)">维修门店</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">零售门店</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">自助服务 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3=""><a _ngcontent-c3=""
+                                                    href="javascript:void(0)">热点咨询</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">预约购买</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">订单物流</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">媒体中心 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">新闻动态</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">官方视频</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">图片资源</a></li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">关于公司 </h3>
+                        <ul _ngcontent-c3=""> <!---->
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">公司简介</a>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">加入我们</a></li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)">荣誉奖项</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li _ngcontent-c3=""><h3 _ngcontent-c3="">关注我们</h3>
+                        <ul _ngcontent-c3="">
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)" target="_blank">新浪微博</a>
+                            </li>
+                            <li _ngcontent-c3="" class="weixin"><a _ngcontent-c3="">官方微信</a>
+                                <div _ngcontent-c3="" class="mask"></div>
+                                <div _ngcontent-c3="" class="qrcode">
+                                    <div _ngcontent-c3="" class="close-btn"></div>
+                                    <h4 _ngcontent-c3="">锤子科技官方微信</h4> <h6 _ngcontent-c3="">
+                                    打开微信，点击右上角的“+”，选择“扫一扫”功能，用摄像头对准下方二维码即可。</h6>
+                                    <div _ngcontent-c3="" class="qrcode-bg"></div>
+                                </div>
+                            </li>
+                            <li _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)"
+                                                    target="_blank">联系我们</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul _ngcontent-c3="" class="service">
+                    <li _ngcontent-c3="" class="tel">400 - 888 - 8888</li>
+                    <li _ngcontent-c3="" class="time">周一到周日 9:00 - 18:00</li>
+                    <li _ngcontent-c3="" class="desc">(仅收市话费)</li>
+                    <li _ngcontent-c3="" class="online"><a _ngcontent-c3=""
+                                                           href="javascript:void(0)"><span
+                            _ngcontent-c3="" class="smartisan-icon info-question"></span>在线帮助</a></li>
+                </ul>
+            </div>
+            <div _ngcontent-c3="" class="copyright"><h4 _ngcontent-c3="">Copyright © <span _ngcontent-c3=""
+                                                                                           copyright-year=""></span>2019,
+                FleaMarket Digital Co., Ltd. All Rights Reserved.</h4> <h5 _ngcontent-c3="" class="company">
+                北京跳蚤科技有限公司</h5>
+                <h6 _ngcontent-c3=""><a _ngcontent-c3="" href="javascript:void(0)" target="_blank"> <span
+                        _ngcontent-c3="">京 ICP 备 14041720 号 - 1</span><span
+                        _ngcontent-c3="">京 ICP 证 140622 号</span><span
+                        _ngcontent-c3="">京公网安备 11010502025474</span> </a> <a _ngcontent-c3=""
+                                                                             href="javascript:void(0)"
+                                                                             target="_blank"><span _ngcontent-c3="">网络文化经营许可证京网文 (2016) 2284 - 266 号</span></a>
+                </h6></div>
+        </div>
+    </div>
+</div>
+<script>
+$(function () {
+//计算购物车徽标位置
+function measureNum() {
+var temleft = $(".topCart").offset().left;
+var temTop = $(".cartNum").offset().top = $(".topCart").offset().top;
+$(".cartNum").css({position: "absolute", left: temleft + 15, top: temTop - 7});
+}
+
+measureNum();
+$(window).resize(function () {
+measureNum();
+});
+changeNum();
+});
+
+//修改购物车的数量
+function changeNum() {
+$.post("../cart_countCart.action", function (data) {
+$(".badge").html(data.toString());
+}, "json");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link type="text/css" href="../static/local/css/css.css" rel="stylesheet" />
+    <SCRIPT type="text/javascript" src="../static/local/js/jquery-2.1.1.js"></SCRIPT>
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#subtijiao").click(function () {
+                var email = $("#email").val();
+                var password1 = $("#pwd1").val();
+                var passwprd2 = $("#pwd2").val();
+                var password = passwprd2;
+                if(email==""){
+                    $("#span_email").text("请输入邮箱");
+                    return;
+                }
+                if(password1==""){
+                    $("#span_pwd1").text("请输入密码");
+                    return;
+                }else if(passwprd2==""){
+                    $("#span_pwd2").text("请再次输入密码");
+                    return;
+                }else if(password1!=passwprd2){
+                    $("#span_pwd2").text("两次密码输入不一致");
+                    return;
+                }
+                if(password.length<6){
+                    $("#span_pwd2").text("密码长度小于6");
+                    return;
+                }
+                var url = "../customer_findByEmail.action";
+                $.post(url,
+                    {"email":email,"password":password},
+                    function (code) {
+                        if(code!="200"){
+                            $("#span_email").text("邮箱错误")
+                        }else{
+                            window.location.href = "../html/backPwd4.html";
+                        }
+                    },'json')
+            })
+        })
+    </script>
+</head>
+
+<body>
+
+<div class="content">
+    <div class="web-width">
+        <div class="for-liucheng">
+            <div class="liulist for-cur"></div>
+            <div class="liulist for-cur"></div>
+            <div class="liulist for-cur"></div>
+            <div class="liulist"></div>
+            <div class="liutextbox">
+                <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+                <div class="liutext for-cur"><em>2</em><br /><strong>验证身份</strong></div>
+                <div class="liutext for-cur"><em>3</em><br /><strong>设置新密码</strong></div>
+                <div class="liutext"><em>4</em><br /><strong>完成</strong></div>
+            </div>
+        </div><!--for-liucheng/-->
+        <div class="forget-pwd">
+            <dl>
+                <dt>新密码：</dt>
+                <dd><input type="password" id="pwd1"/><span id="span_pwd1"></span></dd>
+                <div class="clears"></div>
+            </dl>
+            <dl>
+                <dt>确认密码：</dt>
+                <dd><input type="password" id="pwd2"/><span id="span_pwd2"></span></dd>
+                <div class="clears"></div>
+            </dl>
+            <div class="subtijiao"><input id="subtijiao" type="submit" value="提交" /></div>
+    </div><!--web-width/-->
+</div><!--content/-->
+</div>
+</body>
+</html>

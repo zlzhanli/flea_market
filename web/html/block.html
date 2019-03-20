@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../static/jquery/jquery-3.0.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        .Mysearch{
+            position: relative;
+            z-index: 0;
+            margin-top: 10px;
+            width: 98%;
+            height: 100px;
+            margin-left: 6px;
+            margin-right: 6px;
+            box-sizing: border-box;
+            border: 1px solid rgba(0,0,0,.14);
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);
+            padding-left: 10px;
+            padding-top: 12px;
+            cursor: pointer;
+        }
+
+        .Mysearch img{
+            float: left;
+            padding:  10px;
+            margin-left: -5px;
+            width: 68px;
+            height: 68px;
+
+        }
+        .Mysearch h3{
+            margin-top: 8px;
+            margin-left: 70px;
+        }
+        .Mysearch p{
+            margin-left: 70px;
+            font-size: 15px;
+            color: #6e6e6e;
+        }
+        a{
+            display: block;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $.post("../block_listBlock.action",function (data) {
+                $("#blockList").html("");
+                for(var  i=0;i<data.length;i++){
+
+                    $("#blockList").append("<a href='../forum_showForumList.action?blockId="+data[i].id+"'><div class='col-md-4' style='padding: 3px'>\n" +
+                        "    <div class='Mysearch'>\n" +
+                        "        <img src='../static/local/img/"+data[i].blockCover+"'>\n" +
+                        "        <h3>"+data[i].blockName+"</h3>\n" +
+                        "        <p style='font-size: 15px'>今日：<span style='color: red'>"+data[i].todayActive+"</span> &nbsp;&nbsp;主题：<span>"+data[i].blockAllForum+"</span>&nbsp;&nbsp;贴数：<span>"+data[i].blockAllComment+"</span></p>\n" +
+                        "    </div></div></a>")
+                }
+            },"json");
+
+
+
+        })
+
+
+
+
+    </script>
+
+
+</head>
+
+<body style="background-color: #ededed">
+<div id="header" class="header">
+    <div class="main" >
+        <span id="header-logo" style="display: flex;justify-content: left;align-items: center;"><img style="height: 35px;margin-right: 10px;" src="/static/images/logo.png" alt=""><span>跳蚤市场论坛</span></span>
+        <ul style="margin-left: 55px">
+            <li id="navbar-homepage"  ><a  class="barActive" href="../control_index.action"  target="_self">论坛版块</a></li>
+            <li id="navbar-apk"><a  href="../control_shop.action" target="_self">首页</a></li>
+            <li id="navbar-game"><a href="../control_forum.action" target="_self">自营商城</a></li>
+            <li id="navbar-market"><a href="../control_app.action" target="_self">跳蚤市场APP</a></li>
+            <li id="navbar-about"><a href="../control_aboutUs.action" target="_self">关于我们</a></li>
+        </ul>
+        <!--购物车图标-->
+        <!--<a href="../cart_lsCarts.action"><img class="topCart" id="cart" width="30px" height="30px" src="../static/local/img/topCart.png" /></a>-->
+        <a href="../cart_lsCarts.action"><img class="topCart" id="cart" width="30px" height="30px" src="../static/local/img/topCart.png" /></a>
+        <!--购物车徽标-->
+        <p class="cartNum"><a href="#"> <span class="badge" style="background-color: #888">0</span></a></p>
+        <div id="loginOrNot" class="photoAndName">
+            <a href="../main_login.action">登录</a>&nbsp;&nbsp;<a style="display: inline" href="../main_register.action">注册</a>
+        </div>
+    </div>
+
+</div>
+<div class="container">
+    <div id="blockList">
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+</div>
+
+</body>
+</html>

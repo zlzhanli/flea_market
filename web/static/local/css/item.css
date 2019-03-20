@@ -1,0 +1,89 @@
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.ml40 {
+    margin-left: 40px;
+}
+
+.rtcont {
+    width: 978px;
+    height: 500px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.rtcont .ddzxbt {
+    width: 938px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 22px;
+    font-weight: bold;
+    color: rgb(117, 117, 117);
+    padding-left: 40px;
+    border-bottom: 1px solid #ccc;
+}
+
+.rtcont .grzlbt {
+    width: 938px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    color: rgb(117, 117, 117);
+}
+
+.rtcont .subgrzl {
+    height: 45px;
+    line-height: 45px;
+    width: 900px;
+    background: rgb(253, 253, 253);
+    border: 1px solid #aaa;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+.rtcont .subgrzl span:nth-of-type(1) {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(117, 117, 117);
+    width: 100px;
+    height: 45px;
+    line-height: 45px;
+    padding-left: 20px;
+}
+
+.rtcont .subgrzl span:nth-of-type(2) {
+    display: inline-block;
+    font-size: 15px;
+    color: rgb(117, 117, 117);
+    width: 570px;
+    height: 45px;
+    line-height: 45px;
+    padding-left: 120px;
+}
+
+.rtcont .subgrzl span:nth-of-type(3) {
+    display: inline-block;
+    font-size: 15px;
+    width: 160px;
+    height: 45px;
+    line-height: 45px;
+    text-align: right;
+}
+
+.rtcont .subgrzl span a {
+    color: teal;
+}
+
+.rtcont .subgrzl span a:hover {
+    color: #ff6700;
+}
+
+

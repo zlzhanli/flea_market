@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+    <factory name="dao">
+        <bean>
+            <bean-name>topicDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.TopicDAOImpl</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>administratorDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.AdministratorDAOImpl</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>customerDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.CustomerDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>cityDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.CityDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>receiverAddressDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.ReceiverAddressDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>shippingMethodDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.ShippingMethodDAOImpl</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>cartDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.CartDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>goodsDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.GoodsDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>blockDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.BlockDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>commentDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.CommentDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>forumDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.ForumDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>goodsStatusDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.GoodsStatusDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>goodsTypeDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.GoodsTypeDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>orderDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.OrderDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>orderItemsDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.OrderItemsDAOImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>goodsImgDAO</bean-name>
+            <bean-class>com.flea.market.dao.impl.GoodsImgDAOImpl</bean-class>
+        </bean>
+
+    </factory>
+
+    <factory name="service">
+        <bean>
+            <bean-name>topicService</bean-name>
+            <bean-class>com.flea.market.service.impl.TopicServiceImpl</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>administratorService</bean-name>
+            <bean-class>com.flea.market.service.impl.AdministratorServiceImpl</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>customerService</bean-name>
+            <bean-class>com.flea.market.service.impl.CustomerServiceImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>cityService</bean-name>
+            <bean-class>com.flea.market.service.impl.CityServiceImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>receiverAddressService</bean-name>
+            <bean-class>com.flea.market.service.impl.ReceiverAddressServiceIpml</bean-class>
+        </bean>
+        <bean>
+            <bean-name>cartService</bean-name>
+            <bean-class>com.flea.market.service.impl.CartServiceImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>goodsService</bean-name>
+            <bean-class>com.flea.market.service.impl.GoodsServiceImpl</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>goodsTypeService</bean-name>
+            <bean-class>com.flea.market.service.impl.GoodsTypeServiceImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>GoodsStatusService</bean-name>
+            <bean-class>com.flea.market.service.impl.GoodsStatusServiceImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>orderService</bean-name>
+            <bean-class>com.flea.market.service.impl.OrderServiceImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>orderItemsService</bean-name>
+            <bean-class>com.flea.market.service.impl.OrderItemsServiceImpl</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>shippingMethodService</bean-name>
+            <bean-class>com.flea.market.service.impl.ShippingMethodServiceImpl</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>blockService</bean-name>
+            <bean-class>com.flea.market.service.impl.BlockServiceImpl</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>forumService</bean-name>
+            <bean-class>com.flea.market.service.impl.ForumServiceImpl</bean-class>
+        </bean>
+        <bean>
+            <bean-name>commentService</bean-name>
+            <bean-class>com.flea.market.service.impl.CommentServiceImpl</bean-class>
+        </bean>
+
+
+
+    </factory>
+
+    <factory name="action">
+        <bean>
+            <bean-name>topic</bean-name>
+            <bean-class>com.flea.market.web.action.TopicAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>administrator</bean-name>
+            <bean-class>com.flea.market.web.action.AdministratorAction</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>customer</bean-name>
+            <bean-class>com.flea.market.web.action.CustomerAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>city</bean-name>
+            <bean-class>com.flea.market.web.action.CityAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>address</bean-name>
+            <bean-class>com.flea.market.web.action.ReceiverAddressAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>goods</bean-name>
+            <bean-class>com.flea.market.web.action.GoodsAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>goodsType</bean-name>
+            <bean-class>com.flea.market.web.action.GoodTypeAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>goodsStatus</bean-name>
+            <bean-class>com.flea.market.web.action.GoodsStatusAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>order</bean-name>
+            <bean-class>com.flea.market.web.action.OrderAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>cart</bean-name>
+            <bean-class>com.flea.market.web.action.CartAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>orderItems</bean-name>
+            <bean-class>com.flea.market.web.action.OrderItermsAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>shippingMethod</bean-name>
+            <bean-class>com.flea.market.web.action.ShippingMethodAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>main</bean-name>
+            <bean-class>com.flea.market.web.action.ControllerAction</bean-class>
+        </bean>
+
+        <bean>
+            <bean-name>block</bean-name>
+            <bean-class>com.flea.market.web.action.BlockAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>control</bean-name>
+            <bean-class>com.flea.market.web.action.ControllerAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>forum</bean-name>
+            <bean-class>com.flea.market.web.action.ForumAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>comment</bean-name>
+            <bean-class>com.flea.market.web.action.CommentAction</bean-class>
+        </bean>
+        <bean>
+            <bean-name>pay</bean-name>
+            <bean-class>com.flea.market.web.action.PayAction</bean-class>
+        </bean>
+    </factory>
+</config>

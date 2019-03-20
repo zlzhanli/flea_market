@@ -1,0 +1,332 @@
+<!DOCTYPE html >
+<html lang="zh_CN">
+<!--<html xmlns="http://www.w3.org/1999/xhtml">-->
+<head>
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/css/WdatePicker.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/easy_ui/css/form.css"/>
+    <link href="../../static/easy_ui/css/default/_css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="../../static/easy_ui/js/jquery.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/js/global.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/js/jquery.select.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/js/WdatePicker.js"></script>
+    <script type="text/javascript">
+        window.UMEDITOR_HOME_URL = 'umeditor/';  // 请换成绝对路径
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../static/local/kindeditor/themes/default/default.css">
+    <link rel="stylesheet" type="text/css" href="../../static/local/kindeditor/plugins/code/prettify.css">
+    <script type="text/javascript" src="../../static/local/kindeditor/kindeditor-all-min.js"></script>
+    <script type="text/javascript" src="../../static/local/kindeditor/lang/zh-CN.js"></script>
+    <script type="text/javascript" src="../../static/local/kindeditor/plugins/code/prettify.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/js/umeditor.config.js"></script>
+    <script type="text/javascript" src="../../static/easy_ui/js/editor_api.js"></script>
+
+    <title>基础信息</title>
+    <script>
+        KindEditor.ready(function(K) {
+            var editor = K.create('#editor', {
+                cssPath : '../../static/local/kindeditor/css/prettify.css',
+                uploadJson : '../../static/local/kindeditor/upload_json.jsp',
+                fileManagerJson : '../../static/local/kindeditor/file_manager_json.jsp',
+                afterBlur: function () { this.sync(); }
+            });
+
+        });
+    </script>
+    <script>
+        $(function () {
+
+            // 加载商品类型
+            loadType();
+
+            initShipping();
+
+            // 上传图片
+            $("#cover").change(function () {
+                submitImg("../../updatePhoto.do", "cover");
+            });
+
+            // 提交表单，添加商品
+            $("#submit1").click(function () {
+                add();
+            })
+
+        });
+
+        // 加载商品配送信息
+        function initShipping() {
+            $.ajax({
+                url: "../../shippingMethod_getListMethod.action",
+                type: "post",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    for (var d in data) {
+                        $("#shipping_method").append(createShipping(data, d));
+                    }
+                }
+            });
+
+        }
+
+        function createShipping(data, d) {
+            return "<option value='" + data[d]['shippingId'] + "'>" + data[d]['method'] + "</option>"
+        }
+
+        // 加载商品类型
+        function loadType() {
+            $.ajax({
+                url: "../../goodsType_list.action",
+                type: "POST",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    for (var d in data) {
+                        $("#type").append("<option value='" + data[d]['typeId'] + "'>" + data[d]['typeName'] + "</option>");
+                    }
+                }
+            })
+        }
+
+        // 上传图片
+        function submitImg(url, fileId) {
+            var img = new FormData();
+            var imgObj = document.getElementById(fileId).files[0];
+            img.append("photo", imgObj);
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                data: img,
+                async: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    Toast(data.msg);
+                    $("#cover_name").val(data.newFileName);
+                    $("#img").attr("hidden",false);
+                    $("#img").attr("src","../../upload/"+data.newFileName);
+                }
+            })
+        }
+
+        function add() {
+            var name = $("#name").val();
+            var full_name = $("#full_name").val();
+            var num = $("#num").val();
+            var keyword = $("#keyword").val();
+            var cover = $("#cover_name").val();
+            var type = $("#type").val();
+            var status = $(".rad").val();
+            var price = $("#price").val();
+            var method = $("#shipping_method").val();
+            var detail = $("#editor").val();
+
+            if (name == "" || name == undefined) {
+                Toast("商品名称不能为空");
+                return;
+            }
+            if (full_name == "" || full_name == undefined) {
+                Toast("商品全称不能为空");
+                return;
+            }
+            if (num == "" || num == undefined) {
+                Toast("商品数量不能为空");
+                return;
+            }
+            if (keyword == "" || keyword == undefined) {
+                Toast("商品关键字不能为空");
+                return;
+            }
+            if (cover == "" || cover == undefined) {
+                Toast("请上传一张商品封面图片");
+                return;
+            }
+            if (type == "" || type == undefined) {
+                Toast("请选择商品类型");
+                return;
+            }
+            if (price == "" || price == undefined) {
+                Toast("商品价格不能为空");
+                return;
+            }
+            if (method == "" || method == undefined) {
+                Toast("请选择商品默认配送方式");
+                return;
+            }
+            if (detail == "" || detail == undefined) {
+                Toast("请为商品做点介绍");
+                return;
+            }
+
+            var url = "../../goods_adminSave.action";
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    goodsName: name,
+                    goodsFullName: full_name,
+                    num: num,
+                    goodsKeywords: keyword,
+                    goodsPrice: price,
+                    goodsStatus: status,
+                    cover: cover,
+                    goodsType: type,
+                    shippingMethod: method,
+                    goodsDetail: detail
+                },
+                cache: false,
+                success: function (data) {
+                    $("#reset").click();
+                    Toast(data.msg);
+                }
+            })
+        }
+
+        //瞬时弹框
+        function Toast(msg, duration) {
+            duration = isNaN(duration) ? 3000 : duration;
+            var m = document.createElement('div');
+            m.innerHTML = msg;
+            m.style.cssText = "width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(240, 240, 240);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 40%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+            document.body.appendChild(m);
+            setTimeout(function () {
+                var d = 0.5;
+                m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+                m.style.opacity = '0';
+                setTimeout(function () {
+                    document.body.removeChild(m)
+                }, d * 1000);
+            }, duration);
+        }
+    </script>
+</head>
+
+<body>
+<form>
+    <div id="container">
+        <div id="hd">
+        </div>
+        <div id="bd">
+            <div id="main">
+                <h2 class="subfild">
+                    <span>添加商品</span>
+                </h2>
+                <div class="subfild-content base-info">
+                    <div class="kv-item ue-clear">
+                        <label><span class="impInfo">*</span>商品名称</label>
+                        <div class="kv-item-content">
+                            <input id="name" type="text" placeholder="商品名称"/>
+                        </div>
+                        <span class="kv-item-tip">标题字数限制在35个字符</span>
+                    </div>
+                    <div class="kv-item ue-clear">
+                        <label><span class="impInfo">*</span>商品全名</label>
+                        <div class="kv-item-content">
+                            <input id="full_name" type="text" placeholder="商品全名"/>
+                        </div>
+                        <span class="kv-item-tip">标题字数限制在35个字符</span>
+                    </div>
+                    <img style="position: absolute ;top :60px;right:40px" src="" id="img" hidden width="300px" height="300px">
+                    <div class="kv-item ue-clear">
+                        <label><span class="impInfo">*</span>商品数量</label>
+                        <div class="kv-item-content">
+                            <input id="num" type="number" placeholder="商品数量"/>
+                        </div>
+                    </div>
+                    <div class="kv-item ue-clear">
+                        <label><span class="impInfo">*</span>商品单价</label>
+                        <div class="kv-item-content">
+                            <input id="price" type="number" placeholder="商品单价"/>
+                        </div>
+                    </div>
+                    <div class="kv-item ue-clear">
+                        <label><span class="impInfo">*</span>关键字</label>
+                        <div class="kv-item-content">
+                            <input id="keyword" type="text" placeholder="关键字"/>
+                        </div>
+                        <span class="kv-item-tip">多个关键字使用|隔开</span>
+                    </div>
+                    <div class="kv-item ue-clear">
+                        <label><span class="impInfo">*</span>配送方式</label>
+                        <div class="kv-item-content">
+                            <select id="shipping_method"></select>
+                        </div>
+                    </div>
+                    <div class="kv-item ue-clear">
+                        <label><span class="impInfo">*</span>商品类别</label>
+                        <div class="kv-item-content">
+                            <select id="type">
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="kv-item ue-clear">
+                        <label>是否审核</label>
+                        <div class="kv-item-content">
+                    	<span class="choose">
+                            <span class="checkboxouter">
+                                <input type="radio" class="rad" name="need" value="2"/>
+                                <span class="radio"></span>
+                            </span>
+                            <span class="text">是</span>
+                        </span>
+                            <span class="choose">
+                            <span class="checkboxouter">
+                                <input checked type="radio" class="rad" name="need" value="1"/>
+                                <span class="radio"></span>
+                            </span>
+                            <span class="text">否</span>
+                        </span>
+
+                        </div>
+                        <span class="kv-item-tip">标题字数限制在35个字符</span>
+                    </div>
+
+
+                    <div class="kv-item ue-clear">
+                        <label><span class="impInfo">*</span>商品封面图片</label>
+                        <div class="kv-item-content file">
+                            <span class="text"></span>
+
+                            <input id="cover" type="file"/>
+                            <input type="hidden" id="cover_name">
+                            <input type="button" class="button normal long2" value="浏览.."/>
+                        </div>
+                        <span class="kv-item-tip">标题字数限制在35个字符</span>
+                    </div>
+                </div>
+
+                <h2 class="subfild">
+                    <span>商品详情</span>
+                </h2>
+
+                <div class="subfild-content remarkes-info">
+                    <div class="kv-item ue-clear">
+                        <label><span class="impInfo">*</span>商品详情</label>
+                        <div class="kv-item-content">
+                            <textarea placeholder="商品详情" id="editor"  style="width:800px;height:240px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <input id="submit1" class="button" type="button" value="添加商品"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="reset" id="reset" style="display: none">
+</form>
+</body>
+
+<script type="text/javascript">
+    $('select').select();
+    showRemind('input[type=text],textarea', 'color5');
+    // UM.getEditor('content');
+</script>
+</html>
