@@ -22,13 +22,13 @@ public class EmailUtils {
     public String  sendCodeMail(String email, MailType type) {
         // 连接协议
                 try {
-                    IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAIfbijaRc3S1EI", "Z6TPBf8SYCph2aKEJZrkmhTYUhtC84");
+                    IClientProfile profile = DefaultProfile.getProfile("xxx", "xxxx", "xxxxxx");
                     IAcsClient client = new DefaultAcsClient(profile);
                     String code = RandomCodeUtils.getRandomCode(6);
                     SingleSendMailRequest request = new SingleSendMailRequest();
-                    request.setAccountName("customerservice@www.simplepi.top");
+                    request.setAccountName("xxxxxxx");
                     request.setAddressType(1);
-                    request.setTagName("findpwd");
+                    request.setTagName("xxxxxxxxx");
                     request.setReplyToAddress(true);
                     request.setToAddress(email);
                     request.setSubject(type.getTitle());
